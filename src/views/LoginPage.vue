@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column justify-content-center min-vh-100">
+  <div class="container d-flex flex-column justify-content-center min-vh-100">
     <!-- App Title -->
     <div class="d-flex align-items-center">
       <img

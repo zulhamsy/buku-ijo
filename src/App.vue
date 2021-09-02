@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <test-page />
-  </div>
+  <test-page />
 </template>
 
 <script>
@@ -13,8 +11,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  padding: 0 1.5rem;
-}
-</style>
