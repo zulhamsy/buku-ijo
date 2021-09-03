@@ -74,6 +74,48 @@
         Buat Surat
       </button>
     </form>
+    <!-- Tabel History -->
+    <p class="lead">
+      Recent History
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">
+            Tanggal
+          </th>
+          <th scope="col">
+            Nomor
+          </th>
+          <th scope="col">
+            Perihal
+          </th>
+          <th scope="col">
+            Perekam
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01/08/2021</td>
+          <td>ND-182</td>
+          <td>Pengiriman Pos ke Umum</td>
+          <td>Zulham Syafrawi</td>
+        </tr>
+        <tr>
+          <td>31/07/2021</td>
+          <td>ND-181</td>
+          <td>Pengiriman Pos ke Umum</td>
+          <td>Krisna Erlangga</td>
+        </tr>
+        <tr>
+          <td>31/07/2021</td>
+          <td>S-50</td>
+          <td>Surat Peringatan Pertama PT. Astrazeneca</td>
+          <td>Indra Hidayat</td>
+        </tr>
+      </tbody>
+    </table>
   </main>
 </template>
 
@@ -98,5 +140,14 @@ label {
 
 button {
   font-weight: 600;
+}
+
+form {
+  margin-bottom: 3rem;
+}
+
+table {
+  font-size: 0.8rem;
+  max-width: 100%;
 }
 </style>
