@@ -9,7 +9,7 @@ if (process.env.NODE_ENV == 'production') {
           if (vuePath.test(sourceInputFile)) {
             return [sourceInputFile.replace(vuePath, '.vue')]
           }
-          return ['src/**/*.vue', 'index.html']
+          return ['src/**/*.vue', 'index.html', 'src/router/index.js']
         },
         defaultExtractor(content) {
           if (content.startsWith('<template')) {
