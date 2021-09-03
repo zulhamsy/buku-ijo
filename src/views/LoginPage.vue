@@ -26,6 +26,7 @@
       type="text"
       name="loginid"
       class="form-control mb-4"
+      placeholder="ex: 813300611"
     >
     <!-- Password -->
     <label
@@ -42,21 +43,40 @@
     <!-- CTA -->
     <button
       class="btn btn-success"
+      :disabled="!nip || !password"
       @click="processLogin"
     >
       Masuk Gan
     </button>
+    <!-- Alert -->
+    <teleport to="body">
+      <CustomAlert
+        v-if="showAlert"
+        class="alert-warning"
+      >
+        <template #default>
+          <strong>Authentication Error</strong><br>
+          <span>{{ msgAlert }}</span>
+        </template>
+      </CustomAlert>
+    </teleport>
   </div>
 </template>
 
 <script>
 import { auth } from '../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import CustomAlert from '../components/Alert.vue'
 export default {
+  components: {
+    CustomAlert
+  },
   data() {
     return {
       nip: '',
-      password: null
+      password: null,
+      showAlert: false,
+      msgAlert: ''
     }
   },
   computed: {
@@ -64,13 +84,28 @@ export default {
       return this.nip + '@bukuijo.com'
     }
   },
-  mounted() {
-    console.log(auth)
-  },
   methods: {
     async processLogin() {
-      await signInWithEmailAndPassword(auth, this.nip_process, this.password)
-      this.$router.replace({ name: 'dashboard' })
+      try {
+        await signInWithEmailAndPassword(auth, this.nip_process, this.password)
+        this.$router.replace({ name: 'dashboard' })
+        this.showAlert = false
+      } catch (error) {
+        // console.log(error.code)
+        switch (error.code) {
+          case 'auth/user-not-found':
+            this.msgAlert = `User ${this.nip} beneran terdaftar?`
+            break
+          case 'auth/wrong-password':
+            this.msgAlert = 'Kayaknya salah password om, hehe'
+            break
+          default:
+            this.msgAlert =
+              'Something wrong occured, please contact Administrator'
+            break
+        }
+        this.showAlert = true
+      }
     }
   }
 }
@@ -95,5 +130,11 @@ h2 {
 
 button {
   font-weight: 600;
+}
+
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
