@@ -1,14 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a
-        class="navbar-brand"
-        href="#"
-      ><img
+      <img
         src="..\assets\brand-logo.svg"
         alt="brand logo"
-        class="logo"
-      ></a>
+        class="navbar-brand logo"
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -25,11 +22,13 @@
         class="collapse navbar-collapse"
       >
         <div class="navbar-nav">
-          <a
-            class="nav-link active"
-            aria-current="page"
-            href="#"
-          >Dashboard</a>
+          <router-link
+            class="nav-link"
+            :to="{name:
+              'dashboard'}"
+          >
+            Dashboard
+          </router-link>
           <a
             class="nav-link"
             href="#"
