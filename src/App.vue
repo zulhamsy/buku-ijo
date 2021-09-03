@@ -1,13 +1,5 @@
 <template>
-  <test-page />
+  <router-view />
 </template>
 
-<script>
-import TestPage from './views/Dashboard.vue'
-export default {
-  components: {
-    testPage: TestPage
-  }
-}
-</script>
 
