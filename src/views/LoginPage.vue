@@ -22,6 +22,7 @@
     >NIP Pendek</label>
     <input
       id="loginid"
+      v-model="nip"
       type="text"
       name="loginid"
       class="form-control mb-4"
@@ -33,19 +34,46 @@
     >Password</label>
     <input
       id="password"
+      v-model="password"
       type="password"
       name="password"
       class="form-control mb-4"
     >
     <!-- CTA -->
-    <button class="btn btn-success">
+    <button
+      class="btn btn-success"
+      @click="processLogin"
+    >
       Masuk Gan
     </button>
   </div>
 </template>
 
 <script>
-export default {}
+import { auth } from '../firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+export default {
+  data() {
+    return {
+      nip: '',
+      password: null
+    }
+  },
+  computed: {
+    nip_process() {
+      return this.nip + '@bukuijo.com'
+    }
+  },
+  mounted() {
+    console.log(auth)
+  },
+  methods: {
+    async processLogin() {
+      await signInWithEmailAndPassword(auth, this.nip_process, this.password)
+      this.$router.replace({ name: 'dashboard' })
+    }
+  }
+}
 </script>
 
 <style scoped>

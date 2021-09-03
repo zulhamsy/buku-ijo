@@ -32,9 +32,21 @@
           <a
             class="nav-link"
             href="#"
+            @click.prevent="logout"
           >Logout</a>
         </div>
       </div>
     </div>
   </nav>
 </template>
+<script>
+import { auth } from '../firebase'
+export default {
+  methods: {
+    logout() {
+      auth.signOut()
+      this.$router.replace({ name: 'login' })
+    }
+  }
+}
+</script>
