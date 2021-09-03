@@ -18,12 +18,23 @@
         aria-label="Default select example"
       >
         <option value="ND">
-          Nota Dinas
+          Nota Dinas (ND)
         </option>
         <option value="S">
-          Surat
+          Surat (S)
         </option>
       </select>
+      <!-- Tujuan -->
+      <label
+        for="tujuan"
+        class="form-label"
+      >Tujuan Surat</label>
+      <input
+        id="tujuan"
+        type="text"
+        name="tujuan"
+        class="form-control mb-3"
+      >
       <!-- Perihal -->
       <label
         for="perihal"
@@ -60,7 +71,7 @@
       </div>
       <!-- CTA -->
       <button class="btn btn-success w-100">
-        Ambil Nomor
+        Buat Surat
       </button>
     </form>
   </main>
