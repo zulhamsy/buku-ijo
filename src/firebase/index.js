@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import { getFirestore, collection } from 'firebase/firestore/lite'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB2DHPgZLNM51Nc4AGh4wTKxiyBKqRuqGI',
@@ -14,6 +15,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
+// Auth
 const auth = getAuth(app)
+// Firestore
+const db = getFirestore(app)
+const suratDB = collection(db, 'surat')
 
-export { auth }
+export { auth, suratDB }

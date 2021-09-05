@@ -11,7 +11,8 @@
     "bootstrap": "^5.1.0",
     "firebase": "^9.0.1",
     "vue": "^3.2.6",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.3",

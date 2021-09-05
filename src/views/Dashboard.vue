@@ -121,10 +121,15 @@
 
 <script>
 import TheNavbar from '../components/TheNavbar.vue'
+import { mapActions } from 'vuex'
 export default {
   components: {
     TheNavbar
-  }
+  },
+  mounted() {
+    this.fetchSurat()
+  },
+  methods: { ...mapActions(['fetchSurat']) }
 }
 </script>
 
