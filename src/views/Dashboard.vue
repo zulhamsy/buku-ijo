@@ -1,6 +1,6 @@
 <template>
   <TheNavbar class="mb-3" />
-  <main class="container">
+  <main class="container pb-4">
     <!-- Title -->
     <p class="lead">
       Buat Surat Baru
@@ -62,9 +62,11 @@
           >
         </div>
         <!-- Info Tanggal Surat Terakhir -->
-        <div>
-          <label class="form-label">Tanggal Surat Terakhir</label>
-          <p class="mb-0 py-1">
+        <div id="last-surat-info">
+          <label
+            class="form-label"
+          >Tanggal Surat Terakhir</label>
+          <p class="mb-0 py-2">
             28 Agustus 2021
           </p>
         </div>
@@ -96,23 +98,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>01/08/2021</td>
-          <td>ND-182</td>
-          <td>Pengiriman Pos ke Umum</td>
-          <td>Zulham Syafrawi</td>
-        </tr>
-        <tr>
-          <td>31/07/2021</td>
-          <td>ND-181</td>
-          <td>Pengiriman Pos ke Umum</td>
-          <td>Krisna Erlangga</td>
-        </tr>
-        <tr>
-          <td>31/07/2021</td>
-          <td>S-50</td>
-          <td>Surat Peringatan Pertama PT. Astrazeneca</td>
-          <td>Indra Hidayat</td>
+        <tr
+          v-for="surat in recentSurat"
+          :key="surat.nomor_surat"
+        >
+          <td>{{ formatTanggal(surat.tanggal_surat.toDate()) }}</td>
+          <td>{{ surat.jenis_surat }}-{{ surat.nomor_surat }}</td>
+          <td>{{ surat.perihal }}</td>
+          <td>{{ surat.perekam }}</td>
         </tr>
       </tbody>
     </table>
@@ -121,19 +114,29 @@
 
 <script>
 import TheNavbar from '../components/TheNavbar.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     TheNavbar
   },
+  computed: { ...mapState(['recentSurat']) },
   mounted() {
-    this.fetchSurat()
+    this.fetchRecentSurat()
   },
-  methods: { ...mapActions(['fetchSurat']) }
+  methods: {
+    ...mapActions(['fetchRecentSurat']),
+    formatTanggal(date) {
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+    }
+  }
 }
 </script>
 
 <style scoped>
+#last-surat-info {
+  font-size: 0.8rem;
+}
+
 .lead {
   font-weight: 600;
 }
