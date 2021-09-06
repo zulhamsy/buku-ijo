@@ -63,6 +63,7 @@
             name="tanggal"
             class="form-control"
             :min="minimum"
+            :max="maximum"
           >
         </div>
         <!-- Info Tanggal Surat Terakhir -->
@@ -136,16 +137,11 @@ export default {
       return this.suratTerakhir.tanggal[this.mode_surat]
     },
     minimum() {
-      const year = this.tanggalSuratTerakhir.getFullYear()
-      const month =
-        (this.tanggalSuratTerakhir.getMonth() + 1).length != 1
-          ? `0${this.tanggalSuratTerakhir.getMonth() + 1}`
-          : this.tanggalSuratTerakhir.getMonth() + 1
-      const day =
-        this.tanggalSuratTerakhir.getDate().length != 1
-          ? `0${this.tanggalSuratTerakhir.getDate()}`
-          : this.tanggalSuratTerakhir.getDate()
-      return `${year}-${month}-${day}`
+      return this.minmax(this.tanggalSuratTerakhir)
+    },
+    maximum() {
+      const today = new Date()
+      return this.minmax(today)
     }
   },
   mounted() {
@@ -156,6 +152,16 @@ export default {
     ...mapActions(['fetchRecentSurat', 'fetchSuratTerakhirInfo']),
     formatTanggal(date) {
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+    },
+    minmax(date) {
+      const year = date.getFullYear()
+      const month =
+        (date.getMonth() + 1).length != 1
+          ? `0${date.getMonth() + 1}`
+          : date.getMonth() + 1
+      const day =
+        date.getDate().length != 1 ? `0${date.getDate()}` : date.getDate()
+      return `${year}-${month}-${day}`
     }
   }
 }
