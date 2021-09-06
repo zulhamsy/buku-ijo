@@ -36,14 +36,17 @@ const store = createStore({
       })
     },
     fetchSuratTerakhirInfo({ state }) {
+      const currentYear = new Date().getFullYear()
       const NDQuery = query(
         suratDB,
+        where('tahun_surat', '==', currentYear),
         where('jenis_surat', '==', 'ND'),
         orderBy('tanggal_surat', 'desc'),
         limit(1)
       )
       const SQuery = query(
         suratDB,
+        where('tahun_surat', '==', currentYear),
         where('jenis_surat', '==', 'S'),
         orderBy('tanggal_surat', 'desc'),
         limit(1)

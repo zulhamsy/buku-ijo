@@ -134,7 +134,14 @@ export default {
   computed: {
     ...mapState(['recentSurat', 'suratTerakhir']),
     tanggalSuratTerakhir() {
-      return this.suratTerakhir.tanggal[this.mode_surat]
+      if (!this.suratTerakhir.tanggal[this.mode_surat]) {
+        const date = new Date()
+        date.setDate(1)
+        date.setMonth(0)
+        return date
+      } else {
+        return this.suratTerakhir.tanggal[this.mode_surat]
+      }
     },
     minimum() {
       return this.minmax(this.tanggalSuratTerakhir)
