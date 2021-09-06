@@ -187,7 +187,8 @@ export default {
           : 1,
         tujuan_surat: this.tujuan,
         perihal: this.perihal,
-        tanggal_surat: new Date(this.tanggal_surat)
+        tanggal_surat: new Date(this.tanggal_surat),
+        tahun_surat: new Date().getFullYear()
       })
     }
   }

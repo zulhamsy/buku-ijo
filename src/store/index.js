@@ -62,7 +62,7 @@ const store = createStore({
         (querySnapshot) => {
           querySnapshot.forEach((docs) => {
             if (!docs.value.empty) {
-              docs.forEach((doc) => {
+              docs.value.forEach((doc) => {
                 state.suratTerakhir.nomor[doc.get('jenis_surat')] =
                   doc.get('nomor_surat')
                 state.suratTerakhir.tanggal[doc.get('jenis_surat')] = doc
