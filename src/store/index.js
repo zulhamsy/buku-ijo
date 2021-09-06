@@ -50,8 +50,9 @@ const store = createStore({
             // console.log(doc.data())
             state.suratTerakhir.nomor[doc.get('jenis_surat')] =
               doc.get('nomor_surat')
-            state.suratTerakhir.tanggal[doc.get('jenis_surat')] =
-              doc.get('tanggal_surat')
+            state.suratTerakhir.tanggal[doc.get('jenis_surat')] = doc
+              .get('tanggal_surat')
+              .toDate()
           })
         })
       })

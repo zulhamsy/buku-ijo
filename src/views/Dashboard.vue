@@ -14,6 +14,7 @@
       >Jenis Surat</label>
       <select
         id="jenissurat"
+        v-model="mode_surat"
         class="form-select mb-3"
         aria-label="Default select example"
       >
@@ -46,7 +47,10 @@
         name="perihal"
         class="form-control mb-3"
       >
-      <div class="d-flex justify-content-between mb-4">
+      <div
+        v-if="tanggalSuratTerakhir"
+        class="d-flex justify-content-between mb-4"
+      >
         <!-- DIV / Tanggal dan Tanggal Terakhir -->
         <div>
           <label
@@ -58,16 +62,18 @@
             type="date"
             name="tanggal"
             class="form-control"
-            min="2021-09-01"
+            :min="minimum"
           >
         </div>
         <!-- Info Tanggal Surat Terakhir -->
-        <div id="last-surat-info">
+        <div
+          id="last-surat-info"
+        >
           <label
             class="form-label"
           >Tanggal Surat Terakhir</label>
           <p class="mb-0 py-2">
-            28 Agustus 2021
+            {{ formatTanggal(tanggalSuratTerakhir) }}
           </p>
         </div>
       </div>
@@ -119,7 +125,29 @@ export default {
   components: {
     TheNavbar
   },
-  computed: { ...mapState(['recentSurat']) },
+  data() {
+    return {
+      mode_surat: 'ND'
+    }
+  },
+  computed: {
+    ...mapState(['recentSurat', 'suratTerakhir']),
+    tanggalSuratTerakhir() {
+      return this.suratTerakhir.tanggal[this.mode_surat]
+    },
+    minimum() {
+      const year = this.tanggalSuratTerakhir.getFullYear()
+      const month =
+        (this.tanggalSuratTerakhir.getMonth() + 1).length != 1
+          ? `0${this.tanggalSuratTerakhir.getMonth() + 1}`
+          : this.tanggalSuratTerakhir.getMonth() + 1
+      const day =
+        this.tanggalSuratTerakhir.getDate().length != 1
+          ? `0${this.tanggalSuratTerakhir.getDate()}`
+          : this.tanggalSuratTerakhir.getDate()
+      return `${year}-${month}-${day}`
+    }
+  },
   mounted() {
     this.fetchRecentSurat()
     this.fetchSuratTerakhirInfo()
