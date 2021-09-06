@@ -21,12 +21,16 @@ const store = createStore({
   mutations: {
     addRecentSurat(state, payload) {
       state.recentSurat.push(payload)
+    },
+    removeAllRecentSurat(state) {
+      state.recentSurat = []
     }
   },
   actions: {
     async fetchRecentSurat({ commit }) {
       const q = query(suratDB, orderBy('tanggal_surat', 'desc'), limit(5))
       const querySnapshot = await getDocs(q)
+      commit('removeAllRecentSurat')
       querySnapshot.forEach((doc) => {
         commit('addRecentSurat', doc.data())
       })

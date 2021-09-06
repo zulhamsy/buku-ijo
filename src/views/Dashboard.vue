@@ -104,7 +104,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="recentSurat.length">
         <tr
           v-for="surat in recentSurat"
           :key="surat.nomor_surat"
