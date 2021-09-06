@@ -6,7 +6,7 @@
       Buat Surat Baru
     </p>
     <!-- Form -->
-    <form>
+    <form @submit.prevent="inputSurat">
       <!-- Jenis Surat -->
       <label
         class="form-label"
@@ -32,6 +32,7 @@
       >Tujuan Surat</label>
       <input
         id="tujuan"
+        v-model="tujuan"
         type="text"
         name="tujuan"
         class="form-control mb-3"
@@ -43,9 +44,12 @@
       >Perihal</label>
       <input
         id="perihal"
+        v-model="perihal"
         type="text"
         name="perihal"
         class="form-control mb-3"
+        autocomplete="off"
+        required
       >
       <div
         v-if="tanggalSuratTerakhir"
@@ -59,11 +63,13 @@
           >Tanggal</label>
           <input
             id="tanggal"
+            v-model="tanggal_surat"
             type="date"
             name="tanggal"
             class="form-control"
             :min="minimum"
             :max="maximum"
+            required
           >
         </div>
         <!-- Info Tanggal Surat Terakhir -->
@@ -128,7 +134,10 @@ export default {
   },
   data() {
     return {
-      mode_surat: 'ND'
+      mode_surat: 'ND',
+      tujuan: '',
+      perihal: '',
+      tanggal_surat: ''
     }
   },
   computed: {
@@ -156,7 +165,7 @@ export default {
     this.fetchSuratTerakhirInfo()
   },
   methods: {
-    ...mapActions(['fetchRecentSurat', 'fetchSuratTerakhirInfo']),
+    ...mapActions(['fetchRecentSurat', 'fetchSuratTerakhirInfo', 'addSurat']),
     formatTanggal(date) {
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
@@ -169,6 +178,17 @@ export default {
       const day =
         date.getDate().length != 1 ? `0${date.getDate()}` : date.getDate()
       return `${year}-${month}-${day}`
+    },
+    inputSurat() {
+      this.addSurat({
+        jenis_surat: this.mode_surat,
+        nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
+          ? this.suratTerakhir.nomor[this.mode_surat] + 1
+          : 1,
+        tujuan_surat: this.tujuan,
+        perihal: this.perihal,
+        tanggal_surat: new Date(this.tanggal_surat)
+      })
     }
   }
 }

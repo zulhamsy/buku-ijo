@@ -1,6 +1,13 @@
 import { createStore } from 'vuex'
 import { suratDB } from '../firebase'
-import { getDocs, query, orderBy, limit, where } from 'firebase/firestore/lite'
+import {
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  where,
+  addDoc
+} from 'firebase/firestore/lite'
 
 const store = createStore({
   state() {
@@ -51,18 +58,29 @@ const store = createStore({
         orderBy('tanggal_surat', 'desc'),
         limit(1)
       )
-      Promise.all([getDocs(NDQuery), getDocs(SQuery)]).then((querySnapshot) => {
-        querySnapshot.forEach((docs) => {
-          docs.forEach((doc) => {
-            // console.log(doc.data())
-            state.suratTerakhir.nomor[doc.get('jenis_surat')] =
-              doc.get('nomor_surat')
-            state.suratTerakhir.tanggal[doc.get('jenis_surat')] = doc
-              .get('tanggal_surat')
-              .toDate()
+      Promise.allSettled([getDocs(NDQuery), getDocs(SQuery)]).then(
+        (querySnapshot) => {
+          querySnapshot.forEach((docs) => {
+            if (!docs.value.empty) {
+              docs.forEach((doc) => {
+                state.suratTerakhir.nomor[doc.get('jenis_surat')] =
+                  doc.get('nomor_surat')
+                state.suratTerakhir.tanggal[doc.get('jenis_surat')] = doc
+                  .get('tanggal_surat')
+                  .toDate()
+              })
+            }
           })
-        })
+        }
+      )
+    },
+    async addSurat({ commit, dispatch }, payload) {
+      // console.log(payload)
+      const response = await addDoc(suratDB, {
+        perekam: 'Zulham Syafrawi',
+        ...payload
       })
+      console.log(response)
     }
   }
 })
