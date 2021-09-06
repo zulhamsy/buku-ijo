@@ -122,9 +122,10 @@ export default {
   computed: { ...mapState(['recentSurat']) },
   mounted() {
     this.fetchRecentSurat()
+    this.fetchSuratTerakhirInfo()
   },
   methods: {
-    ...mapActions(['fetchRecentSurat']),
+    ...mapActions(['fetchRecentSurat', 'fetchSuratTerakhirInfo']),
     formatTanggal(date) {
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     }
