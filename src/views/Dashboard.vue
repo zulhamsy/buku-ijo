@@ -123,21 +123,39 @@
       </tbody>
     </table>
   </main>
+  <!-- Alert -->
+  <Alert
+    v-if="alert.show"
+    :class="alert.class"
+  >
+    <template #default>
+      <strong>{{ alert.title }}</strong><br>
+      <span>{{ alert.msg }}</span>
+    </template>
+  </Alert>
 </template>
 
 <script>
 import TheNavbar from '../components/TheNavbar.vue'
+import Alert from '../components/Alert.vue'
 import { mapActions, mapState } from 'vuex'
 export default {
   components: {
-    TheNavbar
+    TheNavbar,
+    Alert
   },
   data() {
     return {
       mode_surat: 'ND',
       tujuan: '',
       perihal: '',
-      tanggal_surat: ''
+      tanggal_surat: '',
+      alert: {
+        show: false,
+        class: '',
+        title: '',
+        msg: ''
+      }
     }
   },
   computed: {
@@ -161,9 +179,18 @@ export default {
     }
   },
   mounted() {
-    this.fetchRecentSurat()
-    this.fetchSuratTerakhirInfo()
-    this.fetchUsername()
+    try {
+      this.fetchRecentSurat()
+      this.fetchSuratTerakhirInfo()
+      this.fetchUsername()
+    } catch {
+      // show error alert
+      this.alert.title = 'Critical Error'
+      this.alert.msg =
+        'Something wrong, please check your connection or contact Administrator'
+      this.alert.class = 'alert-danger'
+      this.alert.show = true
+    }
   },
   methods: {
     ...mapActions([
@@ -185,17 +212,34 @@ export default {
         date.getDate().length != 1 ? `0${date.getDate()}` : date.getDate()
       return `${year}-${month}-${day}`
     },
-    inputSurat() {
-      this.addSurat({
-        jenis_surat: this.mode_surat,
-        nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
-          ? this.suratTerakhir.nomor[this.mode_surat] + 1
-          : 1,
-        tujuan_surat: this.tujuan,
-        perihal: this.perihal,
-        tanggal_surat: new Date(this.tanggal_surat),
-        tahun_surat: new Date().getFullYear()
-      })
+    async inputSurat() {
+      try {
+        await this.addSurat({
+          jenis_surat: this.mode_surat,
+          nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
+            ? this.suratTerakhir.nomor[this.mode_surat] + 1
+            : 1,
+          tujuan_surat: this.tujuan,
+          perihal: this.perihal,
+          tanggal_surat: new Date(this.tanggal_surat),
+          tahun_surat: new Date().getFullYear()
+        })
+        // Show succcess alert
+        this.alert.title = 'Sukses'
+        this.alert.msg = 'Data berhasil diinput'
+        this.alert.class = 'alert-success'
+        this.alert.show = true
+        // Blank field form
+        this.tujuan = ''
+        this.perihal = ''
+      } catch {
+        // show error alert
+        this.alert.title = 'Data Submission Error'
+        this.alert.msg =
+          'Something wrong, please check your connection or contact Administrator'
+        this.alert.class = 'alert-danger'
+        this.alert.show = true
+      }
     }
   }
 }
