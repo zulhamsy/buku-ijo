@@ -10,14 +10,14 @@ if (process.env.NODE_ENV == 'production') {
             return [sourceInputFile.replace(vuePath, '.vue')]
           }
           return ['src/**/*.vue', 'index.html', 'src/router/index.js']
-        },
-        defaultExtractor(content) {
-          if (content.startsWith('<template')) {
-            content = content.split('</template')[0] + '</template>'
-          }
-
-          return content.match(/[\w-/:]+(?<!:)/g) || []
         }
+        // defaultExtractor(content) {
+        //   if (content.startsWith('<template')) {
+        //     content = content.split('</template')[0] + '</template>'
+        //   }
+
+        //   return content.match(/[\w-/:]+(?<!:)/g) || []
+        // }
       })
     ]
   }
