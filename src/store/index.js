@@ -41,7 +41,12 @@ const store = createStore({
   },
   actions: {
     async fetchRecentSurat({ commit }) {
-      const q = query(suratDB, orderBy('tanggal_surat', 'desc'), limit(5))
+      const q = query(
+        suratDB,
+        orderBy('tanggal_surat', 'desc'),
+        orderBy('nomor_surat', 'desc'),
+        limit(5)
+      )
       const querySnapshot = await getDocs(q)
       commit('removeAllRecentSurat')
       querySnapshot.forEach((doc) => {
