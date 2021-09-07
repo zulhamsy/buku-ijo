@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
-import { suratDB } from '../firebase'
+import { suratDB, usersDB, auth } from '../firebase'
 import {
   getDocs,
   query,
   orderBy,
   limit,
   where,
-  addDoc
+  addDoc,
+  doc,
+  getDoc
 } from 'firebase/firestore/lite'
 
 const store = createStore({
@@ -22,7 +24,8 @@ const store = createStore({
           ND: null,
           S: null
         }
-      }
+      },
+      username: null
     }
   },
   mutations: {
@@ -31,6 +34,9 @@ const store = createStore({
     },
     removeAllRecentSurat(state) {
       state.recentSurat = []
+    },
+    changeUsername(state, payload) {
+      state.username = payload
     }
   },
   actions: {
@@ -74,13 +80,20 @@ const store = createStore({
         }
       )
     },
-    async addSurat({ commit, dispatch }, payload) {
-      // console.log(payload)
-      const response = await addDoc(suratDB, {
-        perekam: 'Zulham Syafrawi',
+    async addSurat({ dispatch, state }, payload) {
+      // add to backend
+      await addDoc(suratDB, {
+        perekam: state.username,
         ...payload
       })
-      console.log(response)
+      // re-fetch historical data
+      dispatch('fetchRecentSurat')
+      dispatch('fetchSuratTerakhirInfo')
+    },
+    async fetchUsername({ commit }) {
+      const docRef = doc(usersDB, auth.currentUser.uid)
+      const docSnapshot = await getDoc(docRef)
+      commit('changeUsername', docSnapshot.get('nama'))
     }
   }
 })

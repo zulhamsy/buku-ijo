@@ -20,5 +20,6 @@ const auth = getAuth(app)
 // Firestore
 const db = getFirestore(app)
 const suratDB = collection(db, 'surat')
+const usersDB = collection(db, 'users')
 
-export { auth, suratDB }
+export { auth, suratDB, usersDB }

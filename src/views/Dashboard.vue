@@ -163,9 +163,15 @@ export default {
   mounted() {
     this.fetchRecentSurat()
     this.fetchSuratTerakhirInfo()
+    this.fetchUsername()
   },
   methods: {
-    ...mapActions(['fetchRecentSurat', 'fetchSuratTerakhirInfo', 'addSurat']),
+    ...mapActions([
+      'fetchRecentSurat',
+      'fetchSuratTerakhirInfo',
+      'addSurat',
+      'fetchUsername'
+    ]),
     formatTanggal(date) {
       return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
     },
