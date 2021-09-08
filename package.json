@@ -7,20 +7,21 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@popperjs/core": "^2.9.3",
-    "bootstrap": "^5.1.0",
+    "daisyui": "^1.14.0",
     "firebase": "^9.0.1",
     "vue": "^3.2.6",
     "vue-router": "^4.0.11",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^4.0.3",
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.0.5",
+    "autoprefixer": "^10.3.4",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.17.0",
+    "postcss": "^8.3.6",
     "prettier": "^2.3.2",
+    "tailwindcss": "^2.2.11",
     "vite": "^2.5.1"
   }
 }

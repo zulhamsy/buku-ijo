@@ -1,11 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
 import { createApp } from 'vue'
 import router from './router'
 import store from './store'
 import { auth } from './firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import App from './App.vue'
+import './index.css'
 
 let app
 onAuthStateChanged(auth, () => {
