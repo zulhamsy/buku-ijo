@@ -134,12 +134,12 @@ export default {
     class="w-full bg-cover absolute top-0 w-full h-full md:bg-gradient-to-tr md:from-indigo-400 md:via-green-300 md:to-green-200"
   />
   <!-- Alert -->
-  <SweetAlert>
+  <SweetAlert v-if="alert.show">
     <template #title>
       Gagal Login
     </template>
     <template #message>
-      Kayaknya salah password bro
+      {{ alert.message }}
     </template>
   </SweetAlert>
 </template>
