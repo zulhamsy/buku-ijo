@@ -2,6 +2,8 @@
 import { auth } from '../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import SweetAlert from '../components/SweetAlert.vue'
+import eyeOn from '../assets/visibility-on.svg'
+import eyeOff from '../assets/visibility-off.svg'
 export default {
   components: {
     SweetAlert
@@ -10,6 +12,7 @@ export default {
     return {
       nip: '',
       password: '',
+      showPassword: false,
       alert: {
         show: false,
         title: '',
@@ -21,6 +24,9 @@ export default {
   computed: {
     nip_process() {
       return this.nip + '@bukuijo.com'
+    },
+    showPasswordIcon() {
+      return this.showPassword ? eyeOn : eyeOff
     }
   },
   methods: {
@@ -100,14 +106,15 @@ export default {
             <input
               id="pass"
               v-model="password"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               class="input input-bordered w-full shadow-inner"
             >
             <img
-              src="../assets/visibility-off.svg"
+              :src="showPasswordIcon"
               alt="pass-off"
               class="absolute right-1 top-1 p-2 opacity-50 cursor-pointer"
-            >
+              @click="showPassword = !showPassword"
+            > 
           </div>
         </div>
       </form>
