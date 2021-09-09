@@ -112,7 +112,7 @@ export default {
         </div>
       </form>
       <button
-        class="btn btn-block btn-primary focus:shadow-none"
+        class="btn btn-block btn-primary transition-all duration-300 focus:shadow-none"
         :class="{'shadow-md': nip && password, 'loading': onLoggingIn}"
         :disabled="!nip || !password"
         @click.prevent="processLogin()"
@@ -124,12 +124,12 @@ export default {
   <!-- BG -->
   <div
     id="background"
-    class="w-full bg-cover absolute top-0 w-full h-full md:bg-gradient-to-tr md:from-blue-300 md:to-green-500"
+    class="w-full bg-cover absolute top-0 w-full h-full md:bg-gradient-to-tr md:from-indigo-400 md:via-green-300 md:to-green-200"
   />
   <!-- Alert -->
   <SweetAlert>
     <template #title>
-      Auth Error
+      Gagal Login
     </template>
     <template #message>
       Kayaknya salah password bro
