@@ -1,9 +1,48 @@
 <script>
+import { auth } from '../firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 export default {
   data() {
     return {
       nip: '',
-      password: ''
+      password: '',
+      alert: {
+        show: false,
+        title: '',
+        message: ''
+      },
+      onLoggingIn: false
+    }
+  },
+  computed: {
+    nip_process() {
+      return this.nip + '@bukuijo.com'
+    }
+  },
+  methods: {
+    async processLogin() {
+      this.onLoggingIn = true
+      try {
+        await signInWithEmailAndPassword(auth, this.nip_process, this.password)
+        // this.$router.replace({ name: 'dashboard' })
+        console.log('Login Successfull')
+        this.showAlert = false
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/user-not-found':
+            this.alert.message = `User ${this.nip} beneran terdaftar?`
+            break
+          case 'auth/wrong-password':
+            this.alert.message = 'Kayaknya salah password om, hehe'
+            break
+          default:
+            this.alert.message =
+              'Something wrong occured, please contact Administrator'
+            break
+        }
+        this.alert.show = true
+      }
+      this.onLoggingIn = false
     }
   }
 }
@@ -69,9 +108,10 @@ export default {
         </div>
       </form>
       <button
-        class="btn btn-block btn-primary"
-        :class="{'shadow-md': nip && password}"
+        class="btn btn-block btn-primary focus:shadow-none"
+        :class="{'shadow-md': nip && password, 'loading': onLoggingIn}"
         :disabled="!nip || !password"
+        @click.prevent="processLogin()"
       >
         check in
       </button>
