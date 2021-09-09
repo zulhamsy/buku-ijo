@@ -1,7 +1,11 @@
 <script>
 import { auth } from '../firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import SweetAlert from '../components/SweetAlert.vue'
 export default {
+  components: {
+    SweetAlert
+  },
   data() {
     return {
       nip: '',
@@ -57,7 +61,7 @@ export default {
         <img
           src="../assets/book.png"
           alt="logo brand"
-          class="w-10"
+          class="w-10 transform -rotate-12"
         >
         <h1 class="text-4xl">
           Buku <span class="text-primary font-semibold bg-green-100 px-3 py-1 rounded">Ijo</span>
@@ -117,10 +121,20 @@ export default {
       </button>
     </div>
   </div>
+  <!-- BG -->
   <div
     id="background"
     class="w-full bg-cover absolute top-0 w-full h-full md:bg-gradient-to-tr md:from-blue-300 md:to-green-500"
   />
+  <!-- Alert -->
+  <SweetAlert>
+    <template #title>
+      Auth Error
+    </template>
+    <template #message>
+      Kayaknya salah password bro
+    </template>
+  </SweetAlert>
 </template>
 
 <style scoped>
