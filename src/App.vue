@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import LoginPage from './_daisy_ui/LoginPage.vue'
+import LoginPage from './_daisy_ui/Dashboard.vue'
 export default {
   components: {
     LoginPage
