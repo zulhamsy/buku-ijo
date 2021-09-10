@@ -106,6 +106,10 @@ export default {
         </div>
       </div>
     </div>
+    <!-- CTA Button -->
+    <button class="btn shadow-md focus:shadow-none mt-7 md:mt-3 md:max-w-md w-full">
+      Buat Surat
+    </button>
   </div>
 </template>
 
