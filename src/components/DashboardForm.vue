@@ -54,6 +54,10 @@ export default {
           : date.getMonth() + 1
       const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
       return `${year}-${month}-${day}`
+    },
+    async inputSurat() {
+      // Submit the form
+      console.log('Form Submitted')
     }
   }
 }
@@ -61,7 +65,10 @@ export default {
 <template>
   <div class="w-full md:flex">
     <!-- Submission Form -->
-    <form class="flex-1 space-y-3 mb-5">
+    <form
+      class="flex-1 space-y-3 mb-5"
+      @submit.prevent="inputSurat()"
+    >
       <!-- Select Jenis -->
       <div class="form-control">
         <label
@@ -126,12 +133,17 @@ export default {
           v-model="tanggal_surat"
           type="date"
           name="tanggal"
-          class="input input-bordered shadow-inner"
+          class="input input-bordered shadow-inner w-full"
           :min="minimum"
           :max="maximum"
           required
         >
       </div>
+      <button
+        ref="btnSubmit"
+        class="hidden"
+        type="submit"
+      />
     </form>
     <!-- Info Section -->
     <div class="md:space-y-3 flex align-center justify-between md:block">
@@ -154,7 +166,10 @@ export default {
     </div>
   </div>
   <!-- CTA Button -->
-  <button class="btn shadow-md focus:shadow-none mt-7 md:mt-3 md:max-w-md w-full">
+  <button
+    class="btn shadow-md focus:shadow-none mt-7 md:mt-3 md:max-w-md w-full"
+    @click="$refs.btnSubmit.click()"
+  >
     Buat Surat
   </button>
 </template>
