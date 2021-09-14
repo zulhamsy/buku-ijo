@@ -28,6 +28,16 @@ export default {
     maximum() {
       const today = new Date()
       return this.minmax(today)
+    },
+    formattedDate() {
+      const dateString = this.tanggalSuratTerakhir.toString()
+      const [day, month, date, year] = dateString.split(' ')
+      return {
+        day,
+        month,
+        date,
+        year
+      }
     }
   },
   activated() {
@@ -101,6 +111,7 @@ export default {
           type="text"
           autocomplete="off"
           class="input input-bordered shadow-inner"
+          required
         >
       </div>
       <!-- Tanggal -->
@@ -128,7 +139,7 @@ export default {
           Nomor Surat Terakhir
         </p>
         <p class="md:text-3xl md:font-normal font-bold">
-          {{ mode_surat }} - {{ suratTerakhir.nomor[mode_surat] }}
+          {{ mode_surat }}-{{ suratTerakhir.nomor[mode_surat] }}
         </p>
       </div>
       <div>
@@ -136,7 +147,7 @@ export default {
           Tanggal Surat Terakhir
         </p>
         <p class="md:text-3xl md:font-normal font-bold">
-          {{ tanggalSuratTerakhir }}
+          {{ formattedDate.month }} {{ formattedDate.date }}, {{ formattedDate.year }}
         </p>
       </div>
     </div>
