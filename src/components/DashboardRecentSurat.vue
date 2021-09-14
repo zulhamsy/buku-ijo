@@ -6,8 +6,10 @@ export default {
     ...mapState(['recentSurat'])
   },
   activated() {
-    // perlu terapkan error handling
-    this.fetchRecentSurat()
+    if (!this.recentSurat.length) {
+      // perlu terapkan error handling
+      this.fetchRecentSurat()
+    }
   },
   methods: {
     ...mapActions(['fetchRecentSurat']),
@@ -21,7 +23,10 @@ export default {
 </script>
 
 <template>
-  <button class="btn btn-outline btn-primary btn-xs float-right mb-3">
+  <button
+    class="btn btn-outline btn-primary btn-xs float-right mb-3"
+    @click="fetchRecentSurat()"
+  >
     Refresh Data
   </button>
   <table class="table-fixed table table-compact w-full table-zebra">
