@@ -1,9 +1,16 @@
 <script>
+import { auth } from '../firebase'
 export default {
   props: {
     name: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    logout() {
+      auth.signOut()
+      this.$router.push({ name: 'login' })
     }
   }
 }
@@ -21,7 +28,10 @@ export default {
     </div>
     <!-- Logout hehe -->
     <div class="flex-none">
-      <button class="btn btn-square btn-ghost focus:bg-gray-600">
+      <button
+        class="btn btn-square btn-ghost focus:bg-gray-600"
+        @click="logout()"
+      >
         <img
           src="../assets/logout.svg"
           alt="logout"

@@ -34,8 +34,7 @@ export default {
       this.onLoggingIn = true
       try {
         await signInWithEmailAndPassword(auth, this.nip_process, this.password)
-        // this.$router.replace({ name: 'dashboard' })
-        console.log('Login Successfull')
+        this.$router.replace({ name: 'dashboard' })
         this.showAlert = false
       } catch (error) {
         switch (error.code) {
