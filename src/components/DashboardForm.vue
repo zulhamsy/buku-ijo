@@ -1,6 +1,50 @@
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-  name: 'DashboardForm'
+  name: 'DashboardForm',
+  data() {
+    return {
+      mode_surat: 'ND',
+      tujuan: '',
+      perihal: '',
+      tanggal_surat: ''
+    }
+  },
+  computed: {
+    ...mapState(['suratTerakhir']),
+    tanggalSuratTerakhir() {
+      if (!this.suratTerakhir.tanggal[this.mode_surat]) {
+        const date = new Date()
+        date.setDate(1)
+        date.setMonth(0)
+        return date
+      } else {
+        return this.suratTerakhir.tanggal[this.mode_surat]
+      }
+    },
+    minimum() {
+      return this.minmax(this.tanggalSuratTerakhir)
+    },
+    maximum() {
+      const today = new Date()
+      return this.minmax(today)
+    }
+  },
+  activated() {
+    this.fetchSuratTerakhirInfo()
+  },
+  methods: {
+    ...mapActions(['fetchSuratTerakhirInfo']),
+    minmax(date) {
+      const year = date.getFullYear()
+      const month =
+        date.getMonth() + 1 < 10
+          ? `0${date.getMonth() + 1}`
+          : date.getMonth() + 1
+      const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+      return `${year}-${month}-${day}`
+    }
+  }
 }
 </script>
 <template>
@@ -15,6 +59,7 @@ export default {
         >Pilih Jenis Surat</label>
         <select
           id="jenisnd"
+          v-model="mode_surat"
           class="select select-bordered w-full max-w-md"
         >
           <option value="ND">
@@ -83,7 +128,7 @@ export default {
           Nomor Surat Terakhir
         </p>
         <p class="md:text-3xl md:font-normal font-bold">
-          ND-32
+          {{ mode_surat }} - {{ suratTerakhir.nomor[mode_surat] }}
         </p>
       </div>
       <div>
@@ -91,7 +136,7 @@ export default {
           Tanggal Surat Terakhir
         </p>
         <p class="md:text-3xl md:font-normal font-bold">
-          Sept 10, 2021
+          {{ tanggalSuratTerakhir }}
         </p>
       </div>
     </div>
