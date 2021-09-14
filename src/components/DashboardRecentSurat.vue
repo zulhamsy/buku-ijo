@@ -1,4 +1,7 @@
 <template>
+  <button class="btn btn-outline btn-primary btn-xs float-right mb-3">
+    Refresh Data
+  </button>
   <table class="table-fixed table table-compact w-full table-zebra">
     <thead>
       <tr>
