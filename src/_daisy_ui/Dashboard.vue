@@ -2,6 +2,7 @@
 import SweetNavbar from '../components/SweetNavbar.vue'
 import DashboardForm from '../components/DashboardForm.vue'
 import DashboardRecentSurat from '../components/DashboardRecentSurat.vue'
+import { mapActions } from 'vuex'
 export default {
   components: {
     SweetNavbar
@@ -23,12 +24,16 @@ export default {
           return DashboardForm
       }
     }
-  }
+  },
+  mounted() {
+    this.fetchUsername()
+  },
+  methods: { ...mapActions(['fetchUsername']) }
 }
 </script>
 
 <template>
-  <sweet-navbar name="Zulham S" />
+  <sweet-navbar />
   <div class="container max-w-screen-md mx-auto py-3 px-5">
     <div class="tabs mb-5">
       <a

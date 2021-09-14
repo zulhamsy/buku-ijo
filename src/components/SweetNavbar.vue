@@ -1,11 +1,9 @@
 <script>
 import { auth } from '../firebase'
+import { mapState } from 'vuex'
 export default {
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
+  computed: {
+    ...mapState(['username'])
   },
   methods: {
     logout() {
@@ -20,10 +18,10 @@ export default {
   <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
     <div class="flex-1 px-2 mx-2 gap-x-2">
       <span class="text-lg font-thin">
-        Halo, 
+        Halo,
       </span>
       <span class="text-lg font-semibold">
-        {{ name }}
+        {{ username }}
       </span>
     </div>
     <!-- Logout hehe -->
