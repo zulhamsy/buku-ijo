@@ -41,6 +41,7 @@ export default {
     }
   },
   activated() {
+    // perlu diterapkan error handling
     this.fetchSuratTerakhirInfo()
   },
   methods: {

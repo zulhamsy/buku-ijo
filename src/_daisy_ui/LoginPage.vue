@@ -5,6 +5,7 @@ import SweetAlert from '../components/SweetAlert.vue'
 import eyeOn from '../assets/visibility-on.svg'
 import eyeOff from '../assets/visibility-off.svg'
 export default {
+  name: 'LoginPage',
   components: {
     SweetAlert
   },

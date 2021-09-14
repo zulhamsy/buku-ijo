@@ -4,6 +4,7 @@ import DashboardForm from '../components/DashboardForm.vue'
 import DashboardRecentSurat from '../components/DashboardRecentSurat.vue'
 import { mapActions } from 'vuex'
 export default {
+  name: 'Dashboard',
   components: {
     SweetNavbar
   },

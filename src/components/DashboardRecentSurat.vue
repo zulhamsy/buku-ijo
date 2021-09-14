@@ -1,3 +1,25 @@
+<script>
+import { mapActions, mapState } from 'vuex'
+export default {
+  name: 'DashboardRecentSurat',
+  computed: {
+    ...mapState(['recentSurat'])
+  },
+  activated() {
+    // perlu terapkan error handling
+    this.fetchRecentSurat()
+  },
+  methods: {
+    ...mapActions(['fetchRecentSurat']),
+    formattedDate(someDate) {
+      const dateString = someDate.toString()
+      const [, month, date, year] = dateString.split(' ')
+      return `${month} ${date}, ${year}`
+    }
+  }
+}
+</script>
+
 <template>
   <button class="btn btn-outline btn-primary btn-xs float-right mb-3">
     Refresh Data
@@ -14,20 +36,15 @@
       </tr>
     </thead> 
     <tbody>
-      <tr>
-        <td>Oct 13, 2021</td> 
-        <td>ND-13</td> 
-        <td>Pengiriman SPHP a.n Mirfat</td>
+      <tr
+        v-for="surat in recentSurat"
+        :key="surat.nomor_surat"
+      >
+        <td>{{ formattedDate(surat.tanggal_surat.toDate()) }}</td> 
+        <td>{{ surat.jenis_surat }}-{{ surat.nomor_surat }}</td> 
+        <td>{{ surat.perihal }}</td>
         <td class="hidden md:table-cell">
-          Zulham Syafrawi
-        </td>
-      </tr>
-      <tr>
-        <td>Oct 13, 2021</td> 
-        <td>ND-13</td> 
-        <td>Pengiriman SPHP a.n Mirfat</td>
-        <td class="hidden md:table-cell">
-          Zulham Syafrawi
+          {{ surat.perekam }}
         </td>
       </tr>
     </tbody>
