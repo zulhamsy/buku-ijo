@@ -45,7 +45,7 @@ export default {
     this.fetchSuratTerakhirInfo()
   },
   methods: {
-    ...mapActions(['fetchSuratTerakhirInfo']),
+    ...mapActions(['fetchSuratTerakhirInfo', 'addSurat']),
     minmax(date) {
       const year = date.getFullYear()
       const month =
@@ -56,8 +56,20 @@ export default {
       return `${year}-${month}-${day}`
     },
     async inputSurat() {
-      // Submit the form
-      console.log('Form Submitted')
+      try {
+        await this.addSurat({
+          jenis_surat: this.mode_surat,
+          nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
+            ? this.suratTerakhir.nomor[this.mode_surat] + 1
+            : 1,
+          tujuan_surat: this.tujuan,
+          perihal: this.perihal,
+          tanggal_surat: new Date(this.tanggal_surat),
+          tahun_surat: new Date().getFullYear()
+        })
+      } catch {
+        console.log('There is error')
+      }
     }
   }
 }

@@ -92,7 +92,7 @@ const store = createStore({
         ...payload
       })
       // re-fetch historical data
-      dispatch('fetchRecentSurat')
+      // dispatch('fetchRecentSurat')
       dispatch('fetchSuratTerakhirInfo')
     },
     async fetchUsername({ commit }) {
