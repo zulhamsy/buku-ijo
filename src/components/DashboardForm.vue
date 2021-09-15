@@ -1,13 +1,24 @@
 <script>
 import { mapActions, mapState } from 'vuex'
+import SweetAlert from '../components/SweetAlert.vue'
 export default {
   name: 'DashboardForm',
+  components: {
+    SweetAlert
+  },
   data() {
     return {
       mode_surat: 'ND',
       tujuan: '',
       perihal: '',
-      tanggal_surat: ''
+      tanggal_surat: '',
+      onSubmission: false,
+      alert: {
+        type: '',
+        show: false,
+        title: '',
+        message: ''
+      }
     }
   },
   computed: {
@@ -56,25 +67,50 @@ export default {
       return `${year}-${month}-${day}`
     },
     async inputSurat() {
-      try {
-        await this.addSurat({
-          jenis_surat: this.mode_surat,
-          nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
-            ? this.suratTerakhir.nomor[this.mode_surat] + 1
-            : 1,
-          tujuan_surat: this.tujuan,
-          perihal: this.perihal,
-          tanggal_surat: new Date(this.tanggal_surat),
-          tahun_surat: new Date().getFullYear()
-        })
-      } catch {
-        console.log('There is error')
+      this.onSubmission = true
+      const payload = {
+        jenis_surat: this.mode_surat,
+        nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
+          ? this.suratTerakhir.nomor[this.mode_surat] + 1
+          : 1,
+        tujuan_surat: this.tujuan,
+        perihal: this.perihal,
+        tanggal_surat: new Date(this.tanggal_surat),
+        tahun_surat: new Date().getFullYear()
       }
+      try {
+        await this.addSurat(payload)
+        // Show Success ALert + Notification
+        this.alert.type = 'success'
+        this.alert.title = 'Buat Surat Sukses'
+        this.alert.message = `Nomor Surat Anda adalah ${payload.jenis_surat}-${payload.nomor_surat}`
+        this.alert.show = true
+      } catch {
+        this.alert.type = 'error'
+        this.alert.title = 'Buat Surat Gagal'
+        this.alert.message = 'Terjadi Kesalahan, silahkan refresh halaman'
+        this.alert.show = true
+      }
+      this.onSubmission = false
     }
   }
 }
 </script>
 <template>
+  <!-- Alert -->
+  <SweetAlert
+    v-if="alert.show"
+    :type="alert.type"
+    class="mb-2"
+    @click="alert.show = false"
+  >
+    <template #title>
+      {{ alert.title }}
+    </template>
+    <template #message>
+      {{ alert.message }}
+    </template>
+  </SweetAlert>
   <div class="w-full md:flex">
     <!-- Submission Form -->
     <form
@@ -180,6 +216,7 @@ export default {
   <!-- CTA Button -->
   <button
     class="btn shadow-md focus:shadow-none mt-7 md:mt-3 md:max-w-md w-full"
+    :class="{'loading': onSubmission}"
     @click="$refs.btnSubmit.click()"
   >
     Buat Surat
