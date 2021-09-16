@@ -194,7 +194,10 @@ export default {
       />
     </form>
     <!-- Info Section -->
-    <div class="md:space-y-3 flex align-center justify-between md:block">
+    <div
+      v-if="suratTerakhir.tanggal.ND"
+      class="md:space-y-3 flex align-center justify-between md:block"
+    >
       <div>
         <p class="md:font-semibold text-gray-400 md:pt-2 text-sm md:text-base">
           Nomor Surat Terakhir

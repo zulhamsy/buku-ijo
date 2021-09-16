@@ -59,6 +59,15 @@ export default {
 </script>
 
 <template>
+  <!-- Alert -->
+  <SweetAlert v-if="alert.show">
+    <template #title>
+      Gagal Login
+    </template>
+    <template #message>
+      {{ alert.message }}
+    </template>
+  </SweetAlert>
   <!--Login Wrapper-->
   <div class="max-w-lg min-h-screen mx-auto flex flex-col justify-center">
     <div class="px-4 py-5 md:px-6 md:pt-12 md:pb-8 rounded-lg bg-white md:shadow-lg">
@@ -133,15 +142,6 @@ export default {
     id="background"
     class="w-full bg-cover absolute top-0 w-full h-full md:bg-gradient-to-tr md:from-indigo-400 md:via-green-300 md:to-green-200"
   />
-  <!-- Alert -->
-  <SweetAlert v-if="alert.show">
-    <template #title>
-      Gagal Login
-    </template>
-    <template #message>
-      {{ alert.message }}
-    </template>
-  </SweetAlert>
 </template>
 
 <style scoped>
