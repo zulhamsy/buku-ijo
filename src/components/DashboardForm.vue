@@ -171,7 +171,10 @@ export default {
         >
       </div>
       <!-- Tanggal -->
-      <div class="form-control">
+      <div
+        v-if="Object.keys(suratTerakhir).length"
+        class="form-control"
+      >
         <label
           for="tanggal"
           class="label max-w-md"
@@ -195,7 +198,7 @@ export default {
     </form>
     <!-- Info Section -->
     <div
-      v-if="suratTerakhir.tanggal.ND"
+      v-if="Object.keys(suratTerakhir).length"
       class="md:space-y-3 flex align-center justify-between md:block"
     >
       <div>
