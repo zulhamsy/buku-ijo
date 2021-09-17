@@ -24,14 +24,7 @@ export default {
   computed: {
     ...mapState(['suratTerakhir']),
     tanggalSuratTerakhir() {
-      if (!this.suratTerakhir.tanggal[this.mode_surat]) {
-        const date = new Date()
-        date.setDate(1)
-        date.setMonth(0)
-        return date
-      } else {
-        return this.suratTerakhir.tanggal[this.mode_surat]
-      }
+      return this.suratTerakhir.tanggal[this.mode_surat]
     },
     minimum() {
       return this.minmax(this.tanggalSuratTerakhir)
@@ -56,7 +49,11 @@ export default {
     this.fetchSuratTerakhirInfo()
   },
   methods: {
-    ...mapActions(['fetchSuratTerakhirInfo', 'addSurat']),
+    ...mapActions([
+      'fetchSuratTerakhirInfo',
+      'addSurat',
+      'addSuratTransaction'
+    ]),
     minmax(date) {
       const year = date.getFullYear()
       const month =
@@ -68,18 +65,27 @@ export default {
     },
     async inputSurat() {
       this.onSubmission = true
+      // fetch new stats
+      // await this.fetchSuratTerakhirInfo()
+      // const tahunTerakhir = this.tanggalSuratTerakhir.getFullYear()
+      // let nomor_surat = this.suratTerakhir.nomor[this.mode_surat]
+      // // kalo tahun surat != tahun surat terakhir maka nomor surat otomatis reset ke 1
+      // if (new Date(this.tanggal_surat).getFullYear() != tahunTerakhir) {
+      //   nomor_surat = 1
+      // } else {
+      //   nomor_surat++
+      // }
       const payload = {
         jenis_surat: this.mode_surat,
-        nomor_surat: this.suratTerakhir.nomor[this.mode_surat]
-          ? this.suratTerakhir.nomor[this.mode_surat] + 1
-          : 1,
+        // nomor_surat, -> move logic ke store
         tujuan_surat: this.tujuan,
         perihal: this.perihal,
         tanggal_surat: new Date(this.tanggal_surat),
-        tahun_surat: new Date().getFullYear()
+        tahun_surat: new Date(this.tanggal_surat).getFullYear()
       }
       try {
-        await this.addSurat(payload)
+        await this.addSuratTransaction(payload)
+        // await this.addSurat(payload)
         // Show Success ALert + Notification
         this.alert.type = 'success'
         this.alert.title = 'Buat Surat Sukses'

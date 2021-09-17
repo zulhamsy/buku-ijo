@@ -22,4 +22,4 @@ const db = getFirestore(app)
 const suratDB = collection(db, 'surat')
 const usersDB = collection(db, 'users')
 
-export { auth, suratDB, usersDB }
+export { auth, suratDB, usersDB, db }
