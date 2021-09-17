@@ -5,7 +5,6 @@ import {
   query,
   orderBy,
   limit,
-  addDoc,
   doc,
   getDoc,
   runTransaction
@@ -28,6 +27,15 @@ const store = createStore({
     },
     changeUsername(state, payload) {
       state.username = payload
+    },
+    updateSuratTerakhir(state, docSnap) {
+      state.suratTerakhir = {
+        nomor: docSnap.get('nomor_terakhir'),
+        tanggal: {
+          ND: docSnap.get('tanggal_terakhir.ND').toDate(),
+          S: docSnap.get('tanggal_terakhir.S').toDate()
+        }
+      }
     }
   },
   actions: {
@@ -44,34 +52,20 @@ const store = createStore({
         commit('addRecentSurat', doc.data())
       })
     },
-    async fetchSuratTerakhirInfo({ state }) {
+    async fetchSuratTerakhirInfo({ commit }) {
       const docRef = doc(suratDB, '--stats--')
       const docSnap = await getDoc(docRef)
-      state.suratTerakhir = {
-        nomor: docSnap.get('nomor_terakhir'),
-        tanggal: {
-          ND: docSnap.get('tanggal_terakhir.ND').toDate(),
-          S: docSnap.get('tanggal_terakhir.S').toDate()
-        }
-      }
-    },
-    async addSurat({ dispatch, state }, payload) {
-      // add to backend
-      await addDoc(suratDB, {
-        perekam: state.username,
-        ...payload
-      })
-      // re-fetch historical data
-      // dispatch('fetchRecentSurat')
-      dispatch('fetchSuratTerakhirInfo')
+      commit('updateSuratTerakhir', docSnap)
     },
     async fetchUsername({ commit }) {
       const docRef = doc(usersDB, auth.currentUser.uid)
       const docSnapshot = await getDoc(docRef)
       commit('changeUsername', docSnapshot.get('nama'))
     },
-    async addSuratTransaction({ state }, payload) {
+    async addSuratTransaction({ dispatch, state }, payload) {
       try {
+        // akan direturn untuk diberikan ke DashboardForm / Alert
+        let nomor_surat_ditambahkan
         await runTransaction(db, async (transaction) => {
           // get latest document status
           const lastDocRef = doc(suratDB, '--stats--')
@@ -100,9 +94,13 @@ const store = createStore({
             `tanggal_terakhir.${payload.jenis_surat}`,
             payload.tanggal_surat
           )
+          nomor_surat_ditambahkan = nomor_surat
         })
+        dispatch('fetchSuratTerakhirInfo')
+        // return nomor surat yg baru aja ditambahin
+        return nomor_surat_ditambahkan
       } catch (error) {
-        console.log(error)
+        throw 'Error'
       }
     }
   }

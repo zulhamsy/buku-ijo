@@ -49,11 +49,7 @@ export default {
     this.fetchSuratTerakhirInfo()
   },
   methods: {
-    ...mapActions([
-      'fetchSuratTerakhirInfo',
-      'addSurat',
-      'addSuratTransaction'
-    ]),
+    ...mapActions(['fetchSuratTerakhirInfo', 'addSuratTransaction']),
     minmax(date) {
       const year = date.getFullYear()
       const month =
@@ -65,16 +61,6 @@ export default {
     },
     async inputSurat() {
       this.onSubmission = true
-      // fetch new stats
-      // await this.fetchSuratTerakhirInfo()
-      // const tahunTerakhir = this.tanggalSuratTerakhir.getFullYear()
-      // let nomor_surat = this.suratTerakhir.nomor[this.mode_surat]
-      // // kalo tahun surat != tahun surat terakhir maka nomor surat otomatis reset ke 1
-      // if (new Date(this.tanggal_surat).getFullYear() != tahunTerakhir) {
-      //   nomor_surat = 1
-      // } else {
-      //   nomor_surat++
-      // }
       const payload = {
         jenis_surat: this.mode_surat,
         // nomor_surat, -> move logic ke store
@@ -84,12 +70,11 @@ export default {
         tahun_surat: new Date(this.tanggal_surat).getFullYear()
       }
       try {
-        await this.addSuratTransaction(payload)
-        // await this.addSurat(payload)
+        const nomor_surat = await this.addSuratTransaction(payload)
         // Show Success ALert + Notification
         this.alert.type = 'success'
         this.alert.title = 'Buat Surat Sukses'
-        this.alert.message = `Nomor Surat Anda adalah ${payload.jenis_surat}-${payload.nomor_surat}`
+        this.alert.message = `Nomor Surat Anda adalah ${payload.jenis_surat}-${nomor_surat}`
         this.alert.show = true
       } catch {
         this.alert.type = 'error'
