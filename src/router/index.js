@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '../_daisy_ui/LoginPage.vue'
 import { auth } from '../firebase'
 const Dashboard = () => import('../_daisy_ui/Dashboard.vue')
+const LoginPage = () => import('../_daisy_ui/LoginPage.vue')
 
 const routes = [
   {
