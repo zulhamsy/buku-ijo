@@ -35,7 +35,7 @@ export default {
 
 <template>
   <sweet-navbar />
-  <div class="container max-w-screen-md mx-auto py-3 px-5">
+  <div class="container max-w-screen-md mx-auto py-2 px-5">
     <div class="tabs mb-5">
       <a
         v-for="tab in tabs"
