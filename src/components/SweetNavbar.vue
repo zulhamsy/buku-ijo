@@ -1,7 +1,11 @@
 <script>
+import DropdownMenu from '../components/DropdownMenu.vue'
 import { auth } from '../firebase'
 import { mapState } from 'vuex'
 export default {
+  components: {
+    DropdownMenu
+  },
   computed: {
     ...mapState(['username'])
   },
@@ -24,15 +28,7 @@ export default {
     </div>
     <!-- Logout hehe -->
     <div class="flex-none">
-      <button
-        class="btn btn-square btn-ghost focus:bg-gray-600 hover:bg-gray-500"
-        @click="logout()"
-      >
-        <img
-          src="../assets/vertical_dots.svg"
-          alt="logout"
-        >
-      </button>
+      <dropdown-menu />
     </div>
   </div>
 </template>
