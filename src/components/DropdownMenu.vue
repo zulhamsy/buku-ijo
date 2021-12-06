@@ -1,3 +1,15 @@
+<script>
+import { auth } from '../firebase'
+export default {
+  methods: {
+    logout() {
+      auth.signOut()
+      this.$router.push({ name: 'login' })
+    }
+  }
+}
+</script>
+
 <template>
   <div class="dropdown dropdown-end">
     <button
@@ -18,16 +30,16 @@
             src="../assets/mail.svg"
             alt="options"
           >	
-          <span class="font-semibold">Surat Saya</span>
+          <span class="font-medium">Surat Gue</span>
         </a>
       </li> 
-      <li>
+      <li @click="logout">
         <a class="space-x-3 items-center">
           <img
             src="../assets/logout.svg"
             alt="options"
           >	
-          <span class="font-thin">Logout</span>
+          <span class="font-medium">Logout</span>
         </a>
       </li> 
     </ul>

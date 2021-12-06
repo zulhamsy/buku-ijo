@@ -1,6 +1,5 @@
 <script>
 import DropdownMenu from '../components/DropdownMenu.vue'
-import { auth } from '../firebase'
 import { mapState } from 'vuex'
 export default {
   components: {
@@ -8,12 +7,6 @@ export default {
   },
   computed: {
     ...mapState(['username'])
-  },
-  methods: {
-    logout() {
-      auth.signOut()
-      this.$router.push({ name: 'login' })
-    }
   }
 }
 </script>
