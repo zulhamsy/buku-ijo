@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '../firebase'
 const Dashboard = () => import('../_daisy_ui/Dashboard.vue')
 const LoginPage = () => import('../_daisy_ui/LoginPage.vue')
+const SuratGue = () => import('../_daisy_ui/SuratGue.vue')
 
 const routes = [
   {
@@ -12,6 +13,14 @@ const routes = [
       if (auth.currentUser != null) {
         return { name: 'dashboard' }
       }
+    }
+  },
+  {
+    path: '/surat-gue',
+    name: 'suratgue',
+    component: SuratGue,
+    meta: {
+      requireAuth: true
     }
   },
   {

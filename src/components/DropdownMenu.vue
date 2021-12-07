@@ -5,6 +5,9 @@ export default {
     logout() {
       auth.signOut()
       this.$router.push({ name: 'login' })
+    },
+    newFeature() {
+      this.$router.push({ name: 'suratgue' })
     }
   }
 }
@@ -24,7 +27,7 @@ export default {
       tabindex="0"
       class="p-2 shadow-lg menu dropdown-content bg-base-100 text-neutral rounded-box w-52"
     >
-      <li>
+      <li @click="newFeature">
         <a class="space-x-3 items-center">
           <img
             src="../assets/mail.svg"
