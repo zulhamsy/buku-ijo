@@ -117,6 +117,7 @@ export default {
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
               class="input input-bordered w-full shadow-inner"
+              @keypress.enter="processLogin"
             >
             <img
               :src="showPasswordIcon"
@@ -131,7 +132,7 @@ export default {
         class="btn btn-block btn-primary transition-all duration-300 focus:shadow-none"
         :class="{'shadow-md': nip && password, 'loading': onLoggingIn}"
         :disabled="!nip || !password"
-        @click.prevent="processLogin()"
+        @click.prevent="processLogin"
       >
         check in
       </button>
