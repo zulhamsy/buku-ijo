@@ -57,11 +57,6 @@ const store = createStore({
       const docSnap = await getDoc(docRef)
       commit('updateSuratTerakhir', docSnap)
     },
-    async fetchUsername({ commit }) {
-      const docRef = doc(usersDB, auth.currentUser.uid)
-      const docSnapshot = await getDoc(docRef)
-      commit('changeUsername', docSnapshot.get('nama'))
-    },
     async addSuratTransaction({ dispatch, state }, payload) {
       try {
         // akan direturn untuk diberikan ke DashboardForm / Alert
