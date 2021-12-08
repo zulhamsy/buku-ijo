@@ -1,21 +1,16 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
-import useFetchName from '../composable/useFetchName'
-import { onMounted, ref } from 'vue'
+import { fetchName } from '../composable/useFetchName'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 export default {
   components: { SweetNavbar },
   setup() {
     const store = useStore()
-    const nama = ref('')
-    async function fetchName() {
-      if (!store.state.username) {
-        nama.value = await useFetchName()
-        store.commit('changeUsername', nama.value)
-      }
-    }
+
     onMounted(function () {
-      fetchName()
+      // Fetching Name
+      fetchName(store)
     })
   }
 }
