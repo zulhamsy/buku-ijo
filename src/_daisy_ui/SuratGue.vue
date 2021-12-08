@@ -1,7 +1,23 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
+import useFetchName from '../composable/useFetchName'
+import { onMounted, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
-  components: { SweetNavbar }
+  components: { SweetNavbar },
+  setup() {
+    const store = useStore()
+    const nama = ref('')
+    async function fetchName() {
+      if (!store.state.username) {
+        nama.value = await useFetchName()
+        store.commit('changeUsername', nama.value)
+      }
+    }
+    onMounted(function () {
+      fetchName()
+    })
+  }
 }
 </script>
   
@@ -55,7 +71,7 @@ td {
 }
 
 tbody tr td {
-  @apply text-xs break-normal;
+  @apply text-xs sm:text-base break-normal;
   white-space: normal;
 }
 </style>
