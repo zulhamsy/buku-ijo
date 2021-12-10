@@ -1,18 +1,7 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
-import { fetchName } from '../composable/useFetchName'
-import { onMounted } from 'vue'
-import { useStore } from 'vuex'
 export default {
-  components: { SweetNavbar },
-  setup() {
-    const store = useStore()
-
-    onMounted(function () {
-      // Fetching Name
-      fetchName(store)
-    })
-  }
+  components: { SweetNavbar }
 }
 </script>
   

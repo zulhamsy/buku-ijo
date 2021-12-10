@@ -2,21 +2,10 @@
 import SweetNavbar from '../components/SweetNavbar.vue'
 import DashboardForm from '../components/DashboardForm.vue'
 import DashboardRecentSurat from '../components/DashboardRecentSurat.vue'
-import { fetchName } from '../composable/useFetchName'
-import { useStore } from 'vuex'
-import { onMounted } from 'vue'
 export default {
   name: 'Dashboard',
   components: {
     SweetNavbar
-  },
-  // working on refactor
-  setup() {
-    const store = useStore()
-
-    onMounted(function () {
-      fetchName(store)
-    })
   },
   data() {
     return {
