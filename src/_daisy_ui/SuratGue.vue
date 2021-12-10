@@ -1,14 +1,31 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
+import { useRouter } from 'vue-router'
 export default {
-  components: { SweetNavbar }
+  components: { SweetNavbar },
+  setup() {
+    const router = useRouter()
+
+    function backToHome() {
+      router.push({
+        name: 'dashboard'
+      })
+    }
+
+    return {
+      backToHome
+    }
+  }
 }
 </script>
   
 <template>
   <sweet-navbar />
   <div class="container max-w-screen-md mx-auto py-2 px-5">
-    <button class="btn btn-outline btn-secondary btn-xs font-thin mb-4 float-right">
+    <button
+      class="btn btn-outline btn-secondary btn-xs font-thin mb-4 float-right"
+      @click="backToHome"
+    >
       kembali ke Dashboard
     </button>
     <table class="w-full table-auto table table-compact table-zebra">
