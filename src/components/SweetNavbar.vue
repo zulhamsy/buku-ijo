@@ -1,12 +1,23 @@
 <script>
 import DropdownMenu from '../components/DropdownMenu.vue'
-import { mapState } from 'vuex'
+import { fetchName } from '../composable/useFetchName'
+import { useStore } from 'vuex'
+import { computed, onMounted } from 'vue'
 export default {
   components: {
     DropdownMenu
   },
-  computed: {
-    ...mapState(['username'])
+  setup() {
+    const store = useStore()
+    const username = computed(() => store.state.username)
+
+    onMounted(function () {
+      fetchName(store)
+    })
+
+    return {
+      username
+    }
   }
 }
 </script>
