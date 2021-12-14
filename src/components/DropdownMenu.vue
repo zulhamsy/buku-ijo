@@ -1,13 +1,22 @@
 <script>
 import { auth } from '../firebase'
+import { useRouter } from 'vue-router'
 export default {
-  methods: {
-    logout() {
+  setup() {
+    const router = useRouter()
+
+    function logout() {
       auth.signOut()
-      this.$router.push({ name: 'login' })
-    },
-    newFeature() {
-      this.$router.push({ name: 'suratgue' })
+      router.push({ name: 'login' })
+    }
+
+    function suratGue() {
+      router.push({ name: 'suratgue' })
+    }
+
+    return {
+      logout,
+      suratGue
     }
   }
 }
@@ -27,7 +36,7 @@ export default {
       tabindex="0"
       class="p-2 shadow-lg menu dropdown-content bg-base-100 text-neutral rounded-box w-52"
     >
-      <li @click="newFeature">
+      <li @click="suratGue">
         <a class="space-x-3 items-center">
           <img
             src="../assets/mail.svg"
