@@ -1,10 +1,15 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
+import { fetchSurat } from '../composable/useFetchSurat'
+import formatDate from '../composable/useFormatDate'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { computed, watch, ref, onMounted } from 'vue'
 export default {
   components: { SweetNavbar },
   setup() {
     const router = useRouter()
+    const store = useStore()
 
     function backToHome() {
       router.push({
@@ -12,8 +17,32 @@ export default {
       })
     }
 
+    // fetch surat
+    const surat = ref([])
+    const name = computed(() => store.state.username)
+    async function fetchSuratOnComponent() {
+      const result = await fetchSurat({
+        batas: 10,
+        filter: ['perekam', '==', name.value]
+      })
+
+      result.forEach((data) => {
+        surat.value.push(data.data())
+      })
+    }
+
+    watch(name, fetchSuratOnComponent)
+
+    onMounted(function () {
+      if (name.value) {
+        fetchSuratOnComponent()
+      }
+    })
+
     return {
-      backToHome
+      backToHome,
+      formatDate,
+      surat
     }
   }
 }
@@ -49,17 +78,13 @@ export default {
       </thead> 
       <tbody>
         <tr
-          v-for="x in 10"
-          :key="x"
+          v-for="item in surat"
+          :key="item.id"
         >
-          <td>Dec 07, 2021</td> 
-          <td>ND-12</td> 
-          <td>
-            Pengiriman POS kelewat anjer
-          </td>
-          <td>
-            PT. Altama Brothers
-          </td>
+          <td>{{ formatDate(item.tanggal_surat.toDate()) }}</td> 
+          <td>{{ item.jenis_surat }}-{{ item.nomor_surat }}</td> 
+          <td>{{ item.perihal }}</td>
+          <td>{{ item.tujuan_surat }}</td>
         </tr>
       </tbody>
     </table>

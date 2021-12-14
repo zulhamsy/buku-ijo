@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { suratDB, usersDB, auth, db } from '../firebase'
+import { suratDB, db } from '../firebase'
 import {
   getDocs,
   query,
