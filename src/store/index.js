@@ -1,14 +1,6 @@
 import { createStore } from 'vuex'
 import { suratDB, db } from '../firebase'
-import {
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  doc,
-  getDoc,
-  runTransaction
-} from 'firebase/firestore/lite'
+import { doc, getDoc, runTransaction } from 'firebase/firestore/lite'
 
 const store = createStore({
   state() {
@@ -39,19 +31,6 @@ const store = createStore({
     }
   },
   actions: {
-    async fetchRecentSurat({ commit }) {
-      const q = query(
-        suratDB,
-        orderBy('tanggal_surat', 'desc'),
-        orderBy('nomor_surat', 'desc'),
-        limit(5)
-      )
-      const querySnapshot = await getDocs(q)
-      commit('removeAllRecentSurat')
-      querySnapshot.forEach((doc) => {
-        commit('addRecentSurat', doc.data())
-      })
-    },
     async fetchSuratTerakhirInfo({ commit }) {
       const docRef = doc(suratDB, '--stats--')
       const docSnap = await getDoc(docRef)
