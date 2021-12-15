@@ -1,7 +1,7 @@
 <script>
 import SweetNavbar from '../components/SweetNavbar.vue'
 import { fetchSurat } from '../composable/useFetchSurat'
-import formatDate from '../composable/useFormatDate'
+import extractDate from '../composable/useExtractDate'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed, watch, ref, onMounted } from 'vue'
@@ -39,9 +39,15 @@ export default {
       }
     })
 
+    // Date Formatting
+    function dateDisplay(tanggal) {
+      const { date, month, year } = extractDate(tanggal)
+      return `${month} ${date}, ${year}`
+    }
+
     return {
       backToHome,
-      formatDate,
+      dateDisplay,
       surat
     }
   }
@@ -66,14 +72,10 @@ export default {
           <th scope="col">
             Nomor
           </th> 
-          <th
-            scope="col"
-          >
+          <th scope="col">
             Perihal
           </th>
-          <th>
-            Tujuan
-          </th>
+          <th>Tujuan</th>
         </tr>
       </thead> 
       <tbody>
@@ -81,7 +83,7 @@ export default {
           v-for="item in surat"
           :key="item.id"
         >
-          <td>{{ formatDate(item.tanggal_surat.toDate()) }}</td> 
+          <td>{{ dateDisplay(item.tanggal_surat.toDate()) }}</td> 
           <td>{{ item.jenis_surat }}-{{ item.nomor_surat }}</td> 
           <td>{{ item.perihal }}</td>
           <td>{{ item.tujuan_surat }}</td>

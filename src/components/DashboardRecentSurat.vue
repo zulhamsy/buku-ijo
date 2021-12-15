@@ -2,7 +2,7 @@
 import { useStore } from 'vuex'
 import { computed, onActivated } from 'vue'
 import { fetchSurat } from '../composable/useFetchSurat'
-import formatDate from '../composable/useFormatDate'
+import extractDate from '../composable/useExtractDate'
 export default {
   name: 'DashboardRecentSurat',
   setup() {
@@ -23,29 +23,18 @@ export default {
       }
     })
 
+    // Date Formatting
+    function dateDisplay(tanggal) {
+      const { date, month, year } = extractDate(tanggal)
+      return `${month} ${date}, ${year}`
+    }
+
     return {
       fetchSuratOnComponent,
-      formatDate,
+      dateDisplay,
       recentSurat
     }
   }
-  // computed: {
-  //   ...mapState(['recentSurat'])
-  // },
-  // activated() {
-  //   if (!this.recentSurat.length) {
-  //     // perlu terapkan error handling
-  //     this.fetchRecentSurat()
-  //   }
-  // },
-  // methods: {
-  //   ...mapActions(['fetchRecentSurat']),
-  //   formattedDate(someDate) {
-  //     const dateString = someDate.toString()
-  //     const [, month, date, year] = dateString.split(' ')
-  //     return `${month} ${date}, ${year}`
-  //   }
-  // }
 }
 </script>
 
@@ -72,7 +61,7 @@ export default {
         v-for="surat in recentSurat"
         :key="surat.nomor_surat"
       >
-        <td>{{ formatDate(surat.tanggal_surat.toDate()) }}</td> 
+        <td>{{ dateDisplay(surat.tanggal_surat.toDate()) }}</td> 
         <td>{{ surat.jenis_surat }}-{{ surat.nomor_surat }}</td> 
         <td>{{ surat.perihal }}</td>
         <td class="hidden md:table-cell">
