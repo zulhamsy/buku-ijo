@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { suratDB, db } from '../firebase'
-import { doc, getDoc, runTransaction } from 'firebase/firestore/lite'
+import { doc, runTransaction } from 'firebase/firestore/lite'
 
 const store = createStore({
   state() {
@@ -31,11 +31,6 @@ const store = createStore({
     }
   },
   actions: {
-    async fetchSuratTerakhirInfo({ commit }) {
-      const docRef = doc(suratDB, '--stats--')
-      const docSnap = await getDoc(docRef)
-      commit('updateSuratTerakhir', docSnap)
-    },
     async addSuratTransaction({ dispatch, state }, payload) {
       try {
         // akan direturn untuk diberikan ke DashboardForm / Alert

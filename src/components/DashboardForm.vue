@@ -1,10 +1,24 @@
 <script>
-import { mapActions, mapState } from 'vuex'
+import { onActivated } from 'vue'
+import { mapActions, mapState, useStore } from 'vuex'
 import SweetAlert from '../components/SweetAlert.vue'
+import { fetchSuratTerakhirInfo } from '../composable/useFetchSurat'
 export default {
   name: 'DashboardForm',
   components: {
     SweetAlert
+  },
+  setup() {
+    const store = useStore()
+
+    // Fetching Surat Terakhir Info
+    async function fetchSuratInfo() {
+      const document = await fetchSuratTerakhirInfo()
+      store.commit('updateSuratTerakhir', document)
+    }
+    onActivated(function () {
+      fetchSuratInfo()
+    })
   },
   data() {
     return {
@@ -44,12 +58,12 @@ export default {
       }
     }
   },
-  activated() {
-    // perlu diterapkan error handling
-    this.fetchSuratTerakhirInfo()
-  },
+  // activated() {
+  //   // perlu diterapkan error handling
+  //   this.fetchSuratTerakhirInfo()
+  // },
   methods: {
-    ...mapActions(['fetchSuratTerakhirInfo', 'addSuratTransaction']),
+    ...mapActions(['addSuratTransaction']),
     minmax(date) {
       const year = date.getFullYear()
       const month =
