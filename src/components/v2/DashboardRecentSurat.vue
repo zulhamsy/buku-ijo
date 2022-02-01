@@ -32,18 +32,55 @@
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-slate-200">
-				<tr class="border-0 border-slate-200">
-					<td class="font-medium text-slate-500">Jan 22, 2022</td>
-					<td class="font-light">ND-18</td>
-					<td class="font-semibold">Permintaan Data Pemeriksaan a.n Jayadi dan Etika Jayabaya</td>
-					<td class="font-light">Krisna Erlangga</td>
+				<tr v-for="surat of recentSurat" :key="surat.nomor_surat" class="border-0 border-slate-200">
+					<td class="font-medium text-slate-500">{{ dateDisplay(surat.tanggal_surat.toDate()) }}</td>
+					<td class="font-light">{{ surat.jenis_surat }}-{{ surat.nomor_surat }}</td>
+					<td class="font-semibold">{{ surat.perihal }}</td>
+					<td class="font-light">{{ surat.perekam }}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </template>
 
-<script setup>
+<script>
+import { useStore } from 'vuex'
+import { computed, onActivated } from 'vue'
+import { fetchSurat } from '../../composable/useFetchSurat'
+import extractDate from '../../composable/useExtractDate'
+export default {
+	name: 'DashboardRecentSurat',
+	setup() {
+		const store = useStore()
+
+		// Fetching Surat
+		const recentSurat = computed(() => store.state.recentSurat)
+		async function fetchSuratOnComponent() {
+			const result = await fetchSurat()
+			store.commit('removeAllRecentSurat')
+			result.forEach((doc) => {
+				store.commit('addRecentSurat', doc.data())
+			})
+		}
+		onActivated(function () {
+			if (!recentSurat.value.length) {
+				fetchSuratOnComponent()
+			}
+		})
+
+		// Date Formatting
+		function dateDisplay(tanggal) {
+			const { date, month, year } = extractDate(tanggal)
+			return `${month} ${date}, ${year}`
+		}
+
+		return {
+			fetchSuratOnComponent,
+			dateDisplay,
+			recentSurat
+		}
+	}
+}
 </script>
 
 <style scoped>
