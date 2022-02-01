@@ -7,7 +7,12 @@ const store = createStore({
     return {
       recentSurat: [],
       suratTerakhir: {},
-      username: null
+      username: null,
+      notifKomitmen: {
+        content:
+          '<span class="font-semibold">CV. Sinar Jaya</span> dan <span class="font-semibold underline">12 lainnya</span> akan jatuh tempo dalam waktu dekat. Semangat ye kerjanya!'
+      },
+      notifSurat: {}
     }
   },
   mutations: {

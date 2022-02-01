@@ -6,16 +6,15 @@
 			:current-menu="currentMenu"
 			@onClickMenu="changeMenu($event)"
 		/>
-		<div class="md:flex-1">
+		<div class="md:flex-1 space-y-7">
 			<!-- Notification Placeholder -->
-			<div class="mb-7">
+			<div>
 				<!-- Alert Komitmen -->
-				<the-alert tipe="komitmen" class="mb-3">
-					<span class="font-semibold">CV. Sinar Jaya</span> dan
-					<span class="font-semibold underline">2 lainnya</span> akan jatuh tempo dalam waktu dekat. Semangat ye kerjanya!
+				<the-alert v-if="Object.keys(notifKomitmen).length" tipe="komitmen" class="mb-3">
+					<span v-html="notifKomitmen.content"></span>
 				</the-alert>
 				<!-- Alert Surat-->
-				<the-alert tipe="success" class="hidden">
+				<the-alert v-if="Object.keys(notifSurat).length" tipe="success">
 					Nomor surat loe adalah
 					<span class="font-semibold">S-20</span> tertanggal
 					<span class="font-semibold">24 Januari 2022</span>
@@ -23,8 +22,6 @@
 			</div>
 			<!-- Body Content -->
 			<div>
-				<!-- <dashboard-rekam-surat /> -->
-				<!-- <dashboard-recent-surat /> -->
 				<keep-alive>
 					<component :is="currentTabComponent" />
 				</keep-alive>
@@ -39,6 +36,7 @@ import TheAlert from "../components/v2/TheAlert.vue";
 import DashboardRekamSurat from "../components/v2/DashboardRekamSurat.vue";
 import DashboardRecentSurat from "../components/v2/DashboardRecentSurat.vue";
 import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
 	components: {
@@ -64,11 +62,22 @@ export default {
 			currentMenu.value = text
 		}
 
+		// Notifikasi System
+		const store = useStore()
+		const notifKomitmen = computed(() => {
+			return store.state.notifKomitmen
+		})
+		const notifSurat = computed(() => {
+			return store.state.notifSurat
+		})
+
 		return {
 			sidebarMenuList,
 			currentMenu,
 			currentTabComponent,
-			changeMenu
+			changeMenu,
+			notifKomitmen,
+			notifSurat
 		}
 	}
 }
