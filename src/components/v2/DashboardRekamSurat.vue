@@ -20,17 +20,17 @@
 			<!-- Tujuan Surat -->
 			<div>
 				<label for="tujuan">Tujuan Surat</label>
-				<input-form id="tujuan" type="text" class="w-full" />
+				<input-form id="tujuan" v-model="tujuan" type="text" class="w-full" />
 			</div>
 			<!-- Perihal -->
 			<div>
 				<label for="perihal">Perihal</label>
-				<input-form id="perihal" type="text" class="w-full" />
+				<input-form id="perihal" v-model="perihal" type="text" class="w-full" />
 			</div>
-			<!-- Perihal -->
+			<!-- Date -->
 			<div>
 				<label for="tanggal">Tanggal Surat</label>
-				<input-form id="tanggal" type="date" class="w-full bg-white" />
+				<input-form id="tanggal" v-model="tanggal_surat" type="date" class="w-full bg-white" />
 			</div>
 			<!-- CTA -->
 			<the-button class="w-full md:w-fit !mt-8">
@@ -76,7 +76,6 @@ import extractDate from '../../composable/useExtractDate'
 import { computed, onActivated, ref } from 'vue'
 import { useStore } from 'vuex'
 
-
 export default {
 	components: {
 		InputForm,
@@ -87,6 +86,9 @@ export default {
 
 		// Form Data Related
 		const mode_surat = ref('ND')
+		const tujuan = ref('')
+		const perihal = ref('')
+		const tanggal_surat = ref('')
 
 		// Fetching Surat Terakhir Info
 		const suratTerakhir = computed(() => {
@@ -110,6 +112,9 @@ export default {
 
 		return {
 			mode_surat,
+			tujuan,
+			perihal,
+			tanggal_surat,
 			tanggalSuratTerakhir,
 			suratTerakhir
 		}
