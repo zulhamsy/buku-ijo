@@ -8,10 +8,7 @@ const store = createStore({
       recentSurat: [],
       suratTerakhir: {},
       username: null,
-      notifKomitmen: {
-        content:
-          '<span class="font-semibold">CV. Sinar Jaya</span> dan <span class="font-semibold underline">12 lainnya</span> akan jatuh tempo dalam waktu dekat. Semangat ye kerjanya!'
-      },
+      notifKomitmen: {},
       notifSurat: {}
     }
   },
@@ -33,6 +30,13 @@ const store = createStore({
           S: docSnap.get('tanggal_terakhir.S').toDate()
         }
       }
+    },
+    updateNotifSurat(state, payload) {
+      state.notifSurat.content = payload.contents
+      state.notifSurat.tipe = payload.tipe
+    },
+    closeNotifSurat(state) {
+      state.notifSurat = {}
     }
   },
   actions: {
