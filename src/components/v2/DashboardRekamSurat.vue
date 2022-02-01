@@ -61,7 +61,7 @@
 			</div>
 			<div>
 				<p class="text-xl font-light text-slate-600">Tanggal Surat Terakhir</p>
-				<p class="text-3xl text-slate-700 font-semibold">Jan 22, 2022</p>
+				<p class="text-3xl text-slate-700 font-semibold">{{ tanggalSuratTerakhir }}</p>
 			</div>
 		</div>
 	</div>
@@ -72,6 +72,7 @@ import InputForm from './InputForm.vue';
 import TheButton from './TheButton.vue';
 
 import { fetchSuratTerakhirInfo } from '../../composable/useFetchSurat'
+import extractDate from '../../composable/useExtractDate'
 import { computed, onActivated, ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -92,16 +93,24 @@ export default {
 			return store.state.suratTerakhir
 		})
 
+		const tanggalSuratTerakhir = computed(() => {
+			const tanggal = suratTerakhir.value.tanggal[mode_surat.value]
+			const { month, date, year } = extractDate(tanggal)
+			return `${month} ${date}, ${year}`
+		})
+
 		async function fetchSuratInfo() {
 			const document = await fetchSuratTerakhirInfo()
 			store.commit('updateSuratTerakhir', document)
 		}
+
 		onActivated(function () {
 			fetchSuratInfo()
 		})
 
 		return {
 			mode_surat,
+			tanggalSuratTerakhir,
 			suratTerakhir
 		}
 	}
