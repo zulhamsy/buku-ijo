@@ -6,7 +6,8 @@
 		<div class="container mx-auto pr-4 pl-8 flex justify-between">
 			<!-- Profile Name -->
 			<h1 class="font-semibold text-slate-200 py-5">
-				<span class="font-thin text-slate-200">Hi,</span> Zulham Syafrawi
+				<span class="font-thin text-slate-200">Hi,</span>
+				{{ username }}
 			</h1>
 			<!-- Menu Links -->
 			<div class="flex items-center gap-4">
@@ -67,13 +68,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
 import HeaderMenuMobile from './HeaderMenuMobile.vue';
+
+import { fetchName } from '../../composable/useFetchName'
+
 
 const mobileMenuToggle = ref(false)
 const navbar = ref(null)
 
 onMounted(() => {
+	fetchName(store)
+
 	navbar.value.addEventListener('click', function (e) {
 		e.stopPropagation()
 	})
@@ -82,4 +89,8 @@ onMounted(() => {
 		mobileMenuToggle.value = false
 	})
 })
+
+const store = useStore()
+const username = computed(() => store.state.username)
+
 </script>

@@ -118,6 +118,10 @@ export default {
 		})
 
 		// Submitting Surat
+		const username = computed(() => {
+			return store.state.username
+		})
+
 		async function inputSurat() {
 			const payload = {
 				jenis_surat: mode_surat.value,
@@ -125,7 +129,7 @@ export default {
 				perihal: perihal.value,
 				tanggal_surat: new Date(tanggal_surat.value),
 				tahun_surat: new Date(tanggal_surat.value).getFullYear(),
-				perekam: 'Zulham Syafrawi'
+				perekam: username.value
 			}
 
 			try {
