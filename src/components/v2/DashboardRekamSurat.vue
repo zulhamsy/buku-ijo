@@ -131,7 +131,6 @@ export default {
 				tahun_surat: new Date(tanggal_surat.value).getFullYear(),
 				perekam: username.value
 			}
-
 			try {
 				const nomor_surat = await addSuratTransaction(payload)
 				console.log(nomor_surat);
