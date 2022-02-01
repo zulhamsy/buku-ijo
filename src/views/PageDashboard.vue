@@ -2,6 +2,7 @@
 	<div class="space-y-5 md:flex md:space-y-0">
 		<the-sidebar />
 		<div class="md:flex-1">
+			<!-- Notification Placeholder -->
 			<div class="mb-7">
 				<!-- Alert Komitmen -->
 				<the-alert tipe="komitmen" class="mb-3">
@@ -16,25 +17,15 @@
 				</the-alert>
 			</div>
 			<!-- Body Content -->
-			<div class="flex gap-8">
-				<dashboard-rekam-surat class="flex-1" />
-				<div class="hidden lg:block lg:space-y-6">
-					<div>
-						<p class="text-xl font-light text-slate-600">Nomor Surat Terakhir</p>
-						<p class="text-3xl text-slate-700 font-semibold">ND-20</p>
-					</div>
-					<div>
-						<p class="text-xl font-light text-slate-600">Tanggal Surat Terakhir</p>
-						<p class="text-3xl text-slate-700 font-semibold">Jan 22, 2022</p>
-					</div>
-				</div>
+			<div>
+				<dashboard-rekam-surat />
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import TheSidebar from "./TheSidebar.vue";
-import TheAlert from "./TheAlert.vue";
-import DashboardRekamSurat from "./DashboardRekamSurat.vue";
+import TheSidebar from "../components/v2/TheSidebar.vue";
+import TheAlert from "../components/v2/TheAlert.vue";
+import DashboardRekamSurat from "../components/v2/DashboardRekamSurat.vue";
 </script>
