@@ -17,11 +17,42 @@
 					/>
 				</svg>
 			</span>
-			<span>Dashboard</span>
+			<span>{{ headerTitle }}</span>
 		</summary>
-		<button
+		<!-- <button
 			class="px-3 py-3 w-full text-left border-l-4 border-slate-700 text-slate-700 font-semibold"
-		>Rekam Nomor</button>
-		<button class="px-3 w-full text-left py-3 border-l-4 text-slate-400 font-semibold">Recent Surat</button>
+		>Rekam Nomor</button>-->
+		<button
+			v-for="item of menuItem"
+			:key="item"
+			class="px-3 w-full text-left py-3 border-l-4 text-slate-400 font-semibold"
+			:class="{ 'border-slate-700': item == currentMenu }"
+			@click="$emit('onClickMenu', item)"
+		>
+			<span :class="{ 'text-slate-700': item == currentMenu }">{{ item }}</span>
+		</button>
 	</details>
 </template>
+
+<script>
+
+export default {
+	props: {
+		headerTitle: {
+			type: String,
+			default: ''
+		},
+		menuItem: {
+			type: Array,
+			default: () => { [] }
+		},
+		currentMenu: {
+			type: String,
+			default: ''
+		}
+	},
+	emits: [
+		'onClickMenu'
+	]
+}
+</script>
