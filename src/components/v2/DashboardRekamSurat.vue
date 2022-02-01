@@ -9,6 +9,7 @@
 				<label for="jenis">Pilih Jenis Surat</label>
 				<select
 					id="jenis"
+					v-model="mode_surat"
 					name="jenis"
 					class="px-3 py-2 w-full rounded bg-white border border-slate-300 shadow-sm shadow-slate-800/10 caret-indigo-500 outline-none focus:ring-1 focus:ring-indigo-500 font-semibold focus:font-normal text-slate-600"
 				>
@@ -51,10 +52,12 @@
 			</the-button>
 		</div>
 		<!-- Latest Info -->
-		<div class="hidden lg:block lg:space-y-6">
+		<div v-if="Object.keys(suratTerakhir).length" class="hidden lg:block lg:space-y-6">
 			<div>
 				<p class="text-xl font-light text-slate-600">Nomor Surat Terakhir</p>
-				<p class="text-3xl text-slate-700 font-semibold">ND-20</p>
+				<p
+					class="text-3xl text-slate-700 font-semibold"
+				>{{ mode_surat }}-{{ suratTerakhir.nomor[mode_surat] }}</p>
 			</div>
 			<div>
 				<p class="text-xl font-light text-slate-600">Tanggal Surat Terakhir</p>
@@ -64,9 +67,45 @@
 	</div>
 </template>
 
-<script setup>
+<script>
 import InputForm from './InputForm.vue';
 import TheButton from './TheButton.vue';
+
+import { fetchSuratTerakhirInfo } from '../../composable/useFetchSurat'
+import { computed, onActivated, ref } from 'vue'
+import { useStore } from 'vuex'
+
+
+export default {
+	components: {
+		InputForm,
+		TheButton
+	},
+	setup() {
+		const store = useStore()
+
+		// Form Data Related
+		const mode_surat = ref('ND')
+
+		// Fetching Surat Terakhir Info
+		const suratTerakhir = computed(() => {
+			return store.state.suratTerakhir
+		})
+
+		async function fetchSuratInfo() {
+			const document = await fetchSuratTerakhirInfo()
+			store.commit('updateSuratTerakhir', document)
+		}
+		onActivated(function () {
+			fetchSuratInfo()
+		})
+
+		return {
+			mode_surat,
+			suratTerakhir
+		}
+	}
+}
 </script>
 
 <style scoped>
