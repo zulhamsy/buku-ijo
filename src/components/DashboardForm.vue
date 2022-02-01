@@ -103,52 +103,24 @@ export default {
 </script>
 <template>
   <!-- Alert -->
-  <SweetAlert
-    v-if="alert.show"
-    :type="alert.type"
-    class="mb-2"
-    @click="alert.show = false"
-  >
-    <template #title>
-      {{ alert.title }}
-    </template>
-    <template #message>
-      {{ alert.message }}
-    </template>
+  <SweetAlert v-if="alert.show" :type="alert.type" class="mb-2" @click="alert.show = false">
+    <template #title>{{ alert.title }}</template>
+    <template #message>{{ alert.message }}</template>
   </SweetAlert>
   <div class="w-full md:flex">
     <!-- Submission Form -->
-    <form
-      class="flex-1 space-y-3 mb-5"
-      @submit.prevent="inputSurat()"
-    >
+    <form class="flex-1 space-y-3 mb-5" @submit.prevent="inputSurat()">
       <!-- Select Jenis -->
       <div class="form-control">
-        <label
-          for="jenisnd"
-          class="label"
-        >Pilih Jenis Surat</label>
-        <select
-          id="jenisnd"
-          v-model="mode_surat"
-          class="select select-bordered w-full max-w-md"
-        >
-          <option value="ND">
-            Nota Dinas (ND)
-          </option> 
-          <option value="S">
-            Surat (S)
-          </option> 
+        <label for="jenisnd" class="label">Pilih Jenis Surat</label>
+        <select id="jenisnd" v-model="mode_surat" class="select select-bordered w-full max-w-md">
+          <option value="ND">Nota Dinas (ND)</option>
+          <option value="S">Surat (S)</option>
         </select>
       </div>
       <!-- Tujuan Surat -->
       <div class="form-control">
-        <label
-          class="label"
-          for="tujuan"
-        >
-          Tujuan Surat
-        </label>
+        <label class="label" for="tujuan">Tujuan Surat</label>
         <input
           id="tujuan"
           v-model="tujuan"
@@ -156,16 +128,11 @@ export default {
           placeholder="ex: Subbagian Umum"
           autocomplete="off"
           class="input input-bordered shadow-inner"
-        >
+        />
       </div>
       <!-- Perihal -->
       <div class="form-control">
-        <label
-          class="label"
-          for="perihal"
-        >
-          Perihal
-        </label>
+        <label class="label" for="perihal">Perihal</label>
         <input
           id="perihal"
           v-model="perihal"
@@ -173,17 +140,14 @@ export default {
           autocomplete="off"
           class="input input-bordered shadow-inner"
           required
-        >
+        />
       </div>
       <!-- Tanggal -->
-      <div
-        v-if="Object.keys(suratTerakhir).length"
-        class="form-control"
-      >
-        <label
-          for="tanggal"
-          class="label max-w-md"
-        >Tanggal <span class="badge badge-info text-xs font-thin">format: MM/DD/YYYY</span></label>
+      <div v-if="Object.keys(suratTerakhir).length" class="form-control">
+        <label for="tanggal" class="label max-w-md">
+          Tanggal
+          <span class="badge badge-info text-xs font-thin">format: MM/DD/YYYY</span>
+        </label>
         <input
           id="tanggal"
           v-model="tanggal_surat"
@@ -193,13 +157,9 @@ export default {
           :min="minimum"
           :max="maximum"
           required
-        >
+        />
       </div>
-      <button
-        ref="btnSubmit"
-        class="hidden"
-        type="submit"
-      />
+      <button ref="btnSubmit" class="hidden" type="submit" />
     </form>
     <!-- Info Section -->
     <div
@@ -207,31 +167,27 @@ export default {
       class="md:space-y-3 flex align-center justify-between md:block"
     >
       <div>
-        <p class="md:font-semibold text-gray-400 md:pt-2 text-sm md:text-base">
-          Nomor Surat Terakhir
-        </p>
-        <p class="md:text-3xl md:font-normal font-bold">
-          {{ mode_surat }}-{{ suratTerakhir.nomor[mode_surat] }}
-        </p>
+        <p class="md:font-semibold text-gray-400 md:pt-2 text-sm md:text-base">Nomor Surat Terakhir</p>
+        <p
+          class="md:text-3xl md:font-normal font-bold"
+        >{{ mode_surat }}-{{ suratTerakhir.nomor[mode_surat] }}</p>
       </div>
       <div>
-        <p class="md:font-semibold text-gray-400 md:pt-2 text-sm md:text-base">
-          Tanggal Surat Terakhir
-        </p>
-        <p class="md:text-3xl md:font-normal font-bold">
-          {{ formattedDate.month }} {{ formattedDate.date }}, {{ formattedDate.year }}
-        </p>
+        <p
+          class="md:font-semibold text-gray-400 md:pt-2 text-sm md:text-base"
+        >Tanggal Surat Terakhir</p>
+        <p
+          class="md:text-3xl md:font-normal font-bold"
+        >{{ formattedDate.month }} {{ formattedDate.date }}, {{ formattedDate.year }}</p>
       </div>
     </div>
   </div>
   <!-- CTA Button -->
   <button
     class="btn shadow-md focus:shadow-none mt-7 md:mt-3 md:max-w-md w-full"
-    :class="{'loading': onSubmission}"
+    :class="{ 'loading': onSubmission }"
     @click="$refs.btnSubmit.click()"
-  >
-    Buat Surat
-  </button>
+  >Buat Surat</button>
 </template>
 
 <style scoped>

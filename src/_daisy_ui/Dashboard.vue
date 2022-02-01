@@ -35,12 +35,10 @@ export default {
       <a
         v-for="tab in tabs"
         :key="tab"
-        :class="{'tab-active': tab === currentTab}"
+        :class="{ 'tab-active': tab === currentTab }"
         class="tab tab-bordered font-semibold"
         @click="currentTab = tab"
-      >
-        {{ tab }}
-      </a>
+      >{{ tab }}</a>
     </div>
     <keep-alive>
       <component :is="currentTabComponent" />
