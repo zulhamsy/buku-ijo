@@ -28,9 +28,16 @@
 				<input-form id="perihal" v-model="perihal" type="text" class="w-full" />
 			</div>
 			<!-- Date -->
-			<div>
+			<div v-if="Object.keys(suratTerakhir).length">
 				<label for="tanggal">Tanggal Surat</label>
-				<input-form id="tanggal" v-model="tanggal_surat" type="date" class="w-full bg-white" />
+				<input-form
+					id="tanggal"
+					v-model="tanggal_surat"
+					type="date"
+					class="w-full bg-white"
+					:min="minimumDate"
+					:max="maximumDate"
+				/>
 			</div>
 			<!-- CTA -->
 			<the-button class="w-full md:w-fit !mt-8">
@@ -73,6 +80,7 @@ import TheButton from './TheButton.vue';
 
 import { fetchSuratTerakhirInfo } from '../../composable/useFetchSurat'
 import extractDate from '../../composable/useExtractDate'
+import { formatDateToString } from '../../composable/useFormatDate';
 import { computed, onActivated, ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -89,6 +97,15 @@ export default {
 		const tujuan = ref('')
 		const perihal = ref('')
 		const tanggal_surat = ref('')
+
+		const minimumDate = computed(() => {
+			return formatDateToString(suratTerakhir.value.tanggal[mode_surat.value])
+		})
+
+		const maximumDate = computed(() => {
+			const today = new Date()
+			return formatDateToString(today)
+		})
 
 		// Fetching Surat Terakhir Info
 		const suratTerakhir = computed(() => {
@@ -115,6 +132,8 @@ export default {
 			tujuan,
 			perihal,
 			tanggal_surat,
+			minimumDate,
+			maximumDate,
 			tanggalSuratTerakhir,
 			suratTerakhir
 		}
