@@ -4,6 +4,7 @@
 			<h1 class="text-xl font-semibold text-slate-500">Recent Surat</h1>
 			<button
 				class="p-2 text-sm text-slate-400 rounded-full font-medium hover:text-white hover:bg-emerald-600"
+				@click="fetchSuratOnComponent"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
