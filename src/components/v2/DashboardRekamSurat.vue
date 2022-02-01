@@ -1,8 +1,9 @@
 <template>
 	<div class="lg:flex lg:gap-8 w-full">
 		<!-- Rekam Form -->
-		<div
+		<form
 			class="flex-1 space-y-5 bg-slate-50 shadow-md shadow-slate-600/10 rounded-xl -mx-6 p-6 md:mx-0 md:max-w-lg"
+			@submit.prevent="inputSurat"
 		>
 			<!-- Select Jenis -->
 			<div>
@@ -20,12 +21,19 @@
 			<!-- Tujuan Surat -->
 			<div>
 				<label for="tujuan">Tujuan Surat</label>
-				<input-form id="tujuan" v-model="tujuan" type="text" class="w-full" />
+				<input-form id="tujuan" v-model="tujuan" type="text" class="w-full" autocomplete="off" />
 			</div>
 			<!-- Perihal -->
 			<div>
 				<label for="perihal">Perihal</label>
-				<input-form id="perihal" v-model="perihal" type="text" class="w-full" />
+				<input-form
+					id="perihal"
+					v-model="perihal"
+					required
+					type="text"
+					class="w-full"
+					autocomplete="off"
+				/>
 			</div>
 			<!-- Date -->
 			<div v-if="Object.keys(suratTerakhir).length">
@@ -33,6 +41,7 @@
 				<input-form
 					id="tanggal"
 					v-model="tanggal_surat"
+					required
 					type="date"
 					class="w-full bg-white"
 					:min="minimumDate"
@@ -40,7 +49,7 @@
 				/>
 			</div>
 			<!-- CTA -->
-			<the-button class="w-full md:w-fit !mt-8">
+			<the-button type="submit" class="w-full md:w-fit !mt-8">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-6 w-6 stroke-indigo-200"
@@ -57,7 +66,7 @@
 				</svg>
 				<span>Rekam Surat</span>
 			</the-button>
-		</div>
+		</form>
 		<!-- Latest Info -->
 		<div v-if="Object.keys(suratTerakhir).length" class="hidden lg:block lg:space-y-6">
 			<div>
@@ -81,6 +90,7 @@ import TheButton from './TheButton.vue';
 import { fetchSuratTerakhirInfo } from '../../composable/useFetchSurat'
 import extractDate from '../../composable/useExtractDate'
 import { formatDateToString } from '../../composable/useFormatDate';
+import { addSuratTransaction } from '../../composable/useAddSurat';
 import { computed, onActivated, ref } from 'vue'
 import { useStore } from 'vuex'
 
@@ -106,6 +116,25 @@ export default {
 			const today = new Date()
 			return formatDateToString(today)
 		})
+
+		// Submitting Surat
+		async function inputSurat() {
+			const payload = {
+				jenis_surat: mode_surat.value,
+				tujuan_surat: tujuan.value,
+				perihal: perihal.value,
+				tanggal_surat: new Date(tanggal_surat.value),
+				tahun_surat: new Date(tanggal_surat.value).getFullYear(),
+				perekam: 'Zulham Syafrawi'
+			}
+
+			try {
+				const nomor_surat = await addSuratTransaction(payload)
+				console.log(nomor_surat);
+			} catch (e) {
+				console.log(e);
+			}
+		}
 
 		// Fetching Surat Terakhir Info
 		const suratTerakhir = computed(() => {
@@ -135,7 +164,8 @@ export default {
 			minimumDate,
 			maximumDate,
 			tanggalSuratTerakhir,
-			suratTerakhir
+			suratTerakhir,
+			inputSurat
 		}
 	}
 }

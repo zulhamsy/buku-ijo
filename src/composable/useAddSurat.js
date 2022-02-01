@@ -31,7 +31,7 @@ async function addSuratTransaction(payload) {
       transaction.set(doc(suratDB), {
         ...payload,
         nomor_surat,
-        perekam: payload.username
+        perekam: payload.perekam
       })
       // update --stats-- doc
       transaction.update(
