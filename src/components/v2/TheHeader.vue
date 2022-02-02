@@ -11,14 +11,16 @@
 			</h1>
 			<!-- Menu Links -->
 			<div class="flex items-center gap-4">
-				<button
+				<router-link
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
-					@click="dashboard"
-				>Dashboard</button>
-				<button
+					:to="{ name: 'dashboard' }"
+					exact-active-class="text-white bg-slate-500"
+				>Dashboard</router-link>
+				<router-link
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
-					@click="suratGue"
-				>Surat Gue</button>
+					:to="{ name: 'suratgue' }"
+					exact-active-class="text-white bg-slate-500"
+				>Surat Gue</router-link>
 				<button
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-red-500 hidden md:block"
 				>Komitmen SP2</button>
@@ -72,10 +74,10 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
-import HeaderMenuMobile from './HeaderMenuMobile.vue';
 import { auth } from '../../firebase'
 import { useRouter } from 'vue-router'
 
+import HeaderMenuMobile from './HeaderMenuMobile.vue';
 import { fetchName } from '../../composable/useFetchName'
 
 
@@ -104,13 +106,4 @@ function logout() {
 	auth.signOut()
 	router.push({ name: 'login' })
 }
-
-function suratGue() {
-	router.push({ name: 'suratgue' })
-}
-
-function dashboard() {
-	router.push({ name: 'dashboard' })
-}
-
 </script>
