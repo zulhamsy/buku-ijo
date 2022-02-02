@@ -131,17 +131,20 @@ export default {
 				tahun_surat: new Date(tanggal_surat.value).getFullYear(),
 				perekam: username.value
 			}
+			const { date, month, year } = extractDate(payload.tanggal_surat)
 			try {
 				const nomor_surat = await addSuratTransaction(payload)
 				// update notifikasi
 				store.commit('updateNotifSurat', {
-					content: `<span>Nomor surat lu adalah <span class="font-semibold">${payload.jenis_surat}-${nomor_surat}</span></span>`,
+					content: `<span>Nomor surat lu adalah <span class="font-semibold">${payload.jenis_surat}-${nomor_surat}</span> tertanggal <span class="font-semibold">${month} ${date}, ${year}</span></span>`,
 					tipe: 'success'
 				})
 				// clear form
 				tujuan.value = ''
 				perihal.value = ''
 				tanggal_surat.value = ''
+				// update last info
+				fetchSuratTerakhirInfo()
 			} catch (e) {
 				// update notifikasi
 				store.commit('updateNotifSurat', {
