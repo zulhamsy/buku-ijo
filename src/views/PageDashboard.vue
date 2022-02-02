@@ -14,10 +14,8 @@
 					<span v-html="notifKomitmen.content"></span>
 				</the-alert>
 				<!-- Alert Surat-->
-				<the-alert v-if="Object.keys(notifSurat).length" tipe="success">
-					Nomor surat loe adalah
-					<span class="font-semibold">S-20</span> tertanggal
-					<span class="font-semibold">24 Januari 2022</span>
+				<the-alert v-if="Object.keys(notifSurat).length" :tipe="notifSurat.tipe">
+					<span v-html="notifSurat.content"></span>
 				</the-alert>
 			</div>
 			<!-- Body Content -->

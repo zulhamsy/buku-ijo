@@ -32,7 +32,7 @@ const store = createStore({
       }
     },
     updateNotifSurat(state, payload) {
-      state.notifSurat.content = payload.contents
+      state.notifSurat.content = payload.content
       state.notifSurat.tipe = payload.tipe
     },
     closeNotifSurat(state) {

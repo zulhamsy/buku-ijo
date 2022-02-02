@@ -133,9 +133,21 @@ export default {
 			}
 			try {
 				const nomor_surat = await addSuratTransaction(payload)
-				console.log(nomor_surat);
+				// update notifikasi
+				store.commit('updateNotifSurat', {
+					content: `<span>Nomor surat lu adalah <span class="font-semibold">${payload.jenis_surat}-${nomor_surat}</span></span>`,
+					tipe: 'success'
+				})
+				// clear form
+				tujuan.value = ''
+				perihal.value = ''
+				tanggal_surat.value = ''
 			} catch (e) {
-				console.log(e);
+				// update notifikasi
+				store.commit('updateNotifSurat', {
+					content: `<span>${e}</span>`,
+					tipe: 'error'
+				})
 			}
 		}
 

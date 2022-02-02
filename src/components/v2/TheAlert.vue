@@ -96,6 +96,7 @@
 				]"
 				viewBox="0 0 20 20"
 				fill="currentColor"
+				@click="closeNotif"
 			>
 				<path
 					fill-rule="evenodd"
@@ -109,6 +110,7 @@
 
 <script>
 import { computed } from "vue"
+import { useStore } from "vuex"
 
 export default {
 	props: {
@@ -118,6 +120,7 @@ export default {
 		}
 	},
 	setup(props) {
+		const store = useStore()
 		const titleText = computed(() => {
 			switch (props.tipe) {
 				case 'success':
@@ -143,11 +146,17 @@ export default {
 			return props.tipe == 'komitmen'
 		})
 
+		// Closing Notification
+		function closeNotif() {
+			store.commit('closeNotifSurat')
+		}
+
 		return {
 			titleText,
 			successClass,
 			errorClass,
-			komitmenClass
+			komitmenClass,
+			closeNotif
 		}
 	}
 }
