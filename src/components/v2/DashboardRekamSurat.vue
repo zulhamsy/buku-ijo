@@ -2,7 +2,7 @@
 	<div class="lg:flex lg:gap-8 w-full">
 		<!-- Rekam Form -->
 		<form
-			class="flex-1 space-y-5 bg-slate-50 shadow-md shadow-slate-600/10 rounded-xl -mx-6 p-6 md:mx-0 md:max-w-lg"
+			class="flex-1 space-y-7 md:space-y-5 bg-slate-50 md:shadow-md shadow-slate-600/10 rounded-xl -mx-6 p-6 md:mx-0 md:max-w-lg"
 			@submit.prevent="inputSurat"
 		>
 			<!-- Select Jenis -->
