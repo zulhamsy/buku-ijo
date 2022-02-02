@@ -8,9 +8,13 @@
 		/>
 		<div class="md:flex-1 space-y-7">
 			<!-- Notification Placeholder -->
-			<div>
+			<div class="peer">
 				<!-- Alert Komitmen -->
-				<the-alert v-if="Object.keys(notifKomitmen).length" tipe="komitmen" class="mb-3">
+				<the-alert
+					v-if="Object.keys(notifKomitmen).length"
+					tipe="komitmen"
+					class="mb-3"
+				>
 					<span v-html="notifKomitmen.content"></span>
 				</the-alert>
 				<!-- Alert Surat-->
@@ -19,7 +23,7 @@
 				</the-alert>
 			</div>
 			<!-- Body Content -->
-			<div>
+			<div class="peer-empty:-mt-2 md:peer-empty:mt-5">
 				<keep-alive>
 					<component :is="currentTabComponent" />
 				</keep-alive>
