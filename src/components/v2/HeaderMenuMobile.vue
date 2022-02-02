@@ -6,6 +6,7 @@
 		<div class="container mx-auto space-y-2">
 			<button
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
+				@click="dashboard"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +22,7 @@
 			</button>
 			<button
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
+				@click="suratGue"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +55,7 @@
 			</button>
 			<button
 				class="p-3 w-full text-slate-300 font-semibold rounded-lg group bg-slate-700 focus:bg-red-600 focus:text-slate-200 hover:bg-red-600 hover:text-slate-200"
+				@click="logout"
 			>Logout</button>
 		</div>
 	</div>
@@ -60,6 +63,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { auth } from '../../firebase'
+
 
 const mobile = ref(null)
 onMounted(() => {
@@ -67,4 +74,20 @@ onMounted(() => {
 		e.stopPropagation()
 	})
 })
+
+// Routing Field
+const router = useRouter()
+
+function logout() {
+	auth.signOut()
+	router.push({ name: 'login' })
+}
+
+function suratGue() {
+	router.push({ name: 'suratgue' })
+}
+
+function dashboard() {
+	router.push({ name: 'dashboard' })
+}
 </script>
