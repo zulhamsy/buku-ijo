@@ -4,9 +4,9 @@
 		class="fixed z-10 w-full p-4 bg-slate-800 shadow-lg shadow-slate-700/20 md:hidden"
 	>
 		<div class="container mx-auto space-y-2">
-			<button
+			<router-link
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
-				@click="dashboard"
+				:to="{ name: 'dashboard' }"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -19,14 +19,14 @@
 					/>
 				</svg>
 				<span>Dashboard</span>
-			</button>
-			<button
+			</router-link>
+			<router-link
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
-				@click="suratGue"
+				:to="{ name: 'suratgue' }"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5 fill-slate-500 group-focus:fill-slate-400 group-hover:fill-slate-400"
+					class="h-5 w-5 fill-slate-500 group-focus:fill-slate-400 group-hover:fill-slate-400 group-active:fill-white"
 					viewBox="0 0 20 20"
 					fill="currentColor"
 				>
@@ -34,7 +34,7 @@
 					<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 				</svg>
 				<span>Surat Gue</span>
-			</button>
+			</router-link>
 			<button
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
 			>
@@ -82,12 +82,14 @@ function logout() {
 	auth.signOut()
 	router.push({ name: 'login' })
 }
-
-function suratGue() {
-	router.push({ name: 'suratgue' })
-}
-
-function dashboard() {
-	router.push({ name: 'dashboard' })
-}
 </script>
+
+<style scoped>
+.active {
+	@apply text-white bg-slate-500;
+}
+
+.active svg {
+	@apply fill-white;
+}
+</style>
