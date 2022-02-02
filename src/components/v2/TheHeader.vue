@@ -13,9 +13,11 @@
 			<div class="flex items-center gap-4">
 				<button
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
+					@click="dashboard"
 				>Dashboard</button>
 				<button
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
+					@click="suratGue"
 				>Surat Gue</button>
 				<button
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-red-500 hidden md:block"
@@ -23,7 +25,7 @@
 				<!-- Other Buttons -->
 				<div class="ml-8 flex self-stretch">
 					<!-- Logout Button -->
-					<button class="px-5 rounded-lg group hover:bg-slate-600 hidden md:block">
+					<button class="px-5 rounded-lg group hover:bg-slate-600 hidden md:block" @click="logout">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6 stroke-slate-400 group-hover:stroke-white"
@@ -71,6 +73,8 @@
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import HeaderMenuMobile from './HeaderMenuMobile.vue';
+import { auth } from '../../firebase'
+import { useRouter } from 'vue-router'
 
 import { fetchName } from '../../composable/useFetchName'
 
@@ -92,5 +96,21 @@ onMounted(() => {
 
 const store = useStore()
 const username = computed(() => store.state.username)
+
+// Routing Field
+const router = useRouter()
+
+function logout() {
+	auth.signOut()
+	router.push({ name: 'login' })
+}
+
+function suratGue() {
+	router.push({ name: 'suratgue' })
+}
+
+function dashboard() {
+	router.push({ name: 'dashboard' })
+}
 
 </script>

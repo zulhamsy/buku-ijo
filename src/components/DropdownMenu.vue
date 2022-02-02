@@ -24,13 +24,8 @@ export default {
 
 <template>
   <div class="dropdown dropdown-end">
-    <button
-      class="btn btn-square btn-ghost focus:bg-gray-600 hover:bg-gray-500"
-    >
-      <img
-        src="../assets/vertical_dots.svg"
-        alt="options"
-      >
+    <button class="btn btn-square btn-ghost focus:bg-gray-600 hover:bg-gray-500">
+      <img src="../assets/vertical_dots.svg" alt="options" />
     </button>
     <ul
       tabindex="0"
@@ -38,22 +33,16 @@ export default {
     >
       <li @click="suratGue">
         <a class="space-x-3 items-center">
-          <img
-            src="../assets/mail.svg"
-            alt="options"
-          >	
+          <img src="../assets/mail.svg" alt="options" />
           <span class="font-medium">Surat Gue</span>
         </a>
-      </li> 
+      </li>
       <li @click="logout">
         <a class="space-x-3 items-center">
-          <img
-            src="../assets/logout.svg"
-            alt="options"
-          >	
+          <img src="../assets/logout.svg" alt="options" />
           <span class="font-medium">Logout</span>
         </a>
-      </li> 
+      </li>
     </ul>
   </div>
 </template>
