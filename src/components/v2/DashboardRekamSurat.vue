@@ -144,7 +144,7 @@ export default {
 				perihal.value = ''
 				tanggal_surat.value = ''
 				// update last info
-				fetchSuratTerakhirInfo()
+				fetchSuratInfo()
 			} catch (e) {
 				// update notifikasi
 				store.commit('updateNotifSurat', {
