@@ -8,5 +8,5 @@
 
 <script setup>
 import TheHeader from './components/v2/TheHeader.vue';
-import PageDashboard from './views/PageDashboard.vue';
+import PageDashboard from './views/PageSuratGue.vue';
 </script>
