@@ -1,9 +1,5 @@
 <template>
-  <!-- <the-header /> -->
-  <div>
-    <router-view />
-    <!-- <page-dashboard /> -->
-  </div>
+  <router-view />
 </template>
 
 <script setup>
