@@ -61,38 +61,38 @@ export default {
 <template>
   <!-- Alert -->
   <SweetAlert v-if="alert.show">
-    <template #title>
-      Gagal Login
-    </template>
-    <template #message>
-      {{ alert.message }}
-    </template>
+    <template #title>Gagal Login</template>
+    <template #message>{{ alert.message }}</template>
   </SweetAlert>
   <!--Login Wrapper-->
   <div class="max-w-lg min-h-screen mx-auto flex flex-col justify-center">
-    <div class="px-4 py-5 md:px-6 md:pt-12 md:pb-8 rounded-lg bg-white md:shadow-lg">
+    <div
+      class="px-4 py-5 md:px-6 md:pt-12 md:pb-8 rounded-lg bg-white md:shadow-lg"
+    >
       <!--Title-->
       <div class="flex items-center md:justify-center gap-x-3 mb-3">
         <img
           src="../assets/book.png"
           alt="logo brand"
           class="w-10 transform -rotate-12"
-        >
+        />
         <h1 class="text-4xl">
-          Buku <span class="text-primary font-semibold bg-green-100 px-3 py-1 rounded">Ijo</span>
+          Buku
+          <span
+            class="text-primary font-semibold bg-green-100 px-3 py-1 rounded"
+          >Ijo</span>
         </h1>
       </div>
       <!--Subtitle-->
       <p class="text-md text-gray-400 opacity-80 italic md:text-center">
-        Ambil nomer <span class="text-gray-500 font-medium">nggak</span> pake <span class="text-gray-500 font-medium">repot</span>
+        Ambil nomer
+        <span class="text-gray-500 font-medium">nggak</span> pake
+        <span class="text-gray-500 font-medium">repot</span>
       </p>
       <!--Form SignIn-->
       <form class="mt-5 md:mt-8 mb-10 space-y-4">
         <div class="form-control">
-          <label
-            class="label"
-            for="nip"
-          >
+          <label class="label" for="nip">
             <span class="label-text">NIP Pendek</span>
           </label>
           <input
@@ -102,13 +102,10 @@ export default {
             placeholder="ex: 813300611"
             autocomplete="off"
             class="input input-bordered shadow-inner"
-          >
+          />
         </div>
         <div class="form-control">
-          <label
-            class="label"
-            for="pass"
-          >
+          <label class="label" for="pass">
             <span class="label-text">Password</span>
           </label>
           <div class="relative">
@@ -118,24 +115,22 @@ export default {
               :type="showPassword ? 'text' : 'password'"
               class="input input-bordered w-full shadow-inner"
               @keypress.enter="processLogin"
-            >
+            />
             <img
               :src="showPasswordIcon"
               alt="pass-off"
               class="absolute right-1 top-1 p-2 opacity-50 cursor-pointer"
               @click="showPassword = !showPassword"
-            > 
+            />
           </div>
         </div>
       </form>
       <button
         class="btn btn-block btn-primary transition-all duration-300 focus:shadow-none"
-        :class="{'shadow-md': nip && password, 'loading': onLoggingIn}"
+        :class="{ 'shadow-md': nip && password, 'loading': onLoggingIn }"
         :disabled="!nip || !password"
         @click.prevent="processLogin"
-      >
-        check in
-      </button>
+      >check in</button>
     </div>
   </div>
   <!-- BG -->
