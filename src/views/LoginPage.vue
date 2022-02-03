@@ -51,6 +51,7 @@
           class="h-5 w-5 fill-red-300 cursor-pointer hover:fill-red-500"
           viewBox="0 0 20 20"
           fill="currentColor"
+          @click="showAlert = false"
         >
           <path
             fill-rule="evenodd"
