@@ -1,140 +1,130 @@
 <template>
-  <div class="container d-flex flex-column justify-content-center min-vh-100">
-    <!-- App Title -->
-    <div class="d-flex align-items-center">
-      <img
-        src="..\assets\brand-logo.svg"
-        alt="brand logo"
-        class="logo"
-      >
-      <h2>
-        <span>Buku</span>
-        <span class="text-success"> Ijo</span>
-      </h2>
+  <div
+    id="container"
+    class="min-h-screen py-5 flex justify-center items-center"
+  >
+    <div
+      class="min-w-fit rounded-lg shadow-lg shadow-indigo-800/10 border border-slate-200 bg-white"
+    >
+      <!--Form-->
+      <div class="px-8 pt-12 pb-9 space-y-10">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12 p-2 bg-indigo-50 rounded-full fill-indigo-400"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <h1
+            class="mt-4 mb-1 text-2xl text-slate-600 font-bold tracking-tight"
+          >Eits, login dulu</h1>
+          <p class="text-slate-500 font-light text-sm">Jangan nyelonong aja bos</p>
+        </div>
+        <div class="space-y-5">
+          <!--Username-->
+          <div>
+            <label
+              for="npwp"
+              class="text-slate-500 font-semibold block mb-1 text-sm"
+            >Username</label>
+            <input
+              id="npwp"
+              type="text"
+              name="npwp"
+              class="w-72 px-3 py-2 rounded border border-slate-300 shadow shadow-slate-800/10 caret-indigo-500 outline-none focus:ring-1 focus:ring-indigo-500 font-semibold focus:font-normal text-slate-600 placeholder:text-slate-300 placeholder:font-light peer invalid:ring-red-500 invalid:ring-1"
+              placeholder="ex: 813300611"
+              pattern="[0-9]{9}"
+            />
+            <p
+              class="hidden peer-invalid:block mt-2 text-xs text-red-500"
+            >Pake NIP Pendek ye, bukan nama panggilan</p>
+          </div>
+          <!--Password-->
+          <div>
+            <label
+              for="pass"
+              class="text-slate-500 font-semibold block mb-1 text-sm"
+            >Password</label>
+            <div class="relative">
+              <input
+                id="pass"
+                type="password"
+                name="pass"
+                class="w-72 px-3 py-2 rounded border border-slate-300 shadow shadow-slate-800/10 caret-indigo-500 outline-none focus:ring-1 focus:ring-indigo-500 font-semibold focus:font-normal text-slate-600 peer"
+              />
+              <!--Eye-->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 absolute top-1/2 right-2 -translate-y-1/2 stroke-slate-500 peer-focus:stroke-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <button
+          class="flex justify-center items-center gap-2 w-full font-medium text-white bg-indigo-600 hover:bg-indigo-500 hover:shadow hover:shadow-indigo-800/40 focus:bg-indigo-700 focus:shadow-inner pr-9 pl-8 py-3 rounded-lg group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 fill-indigo-300 group-focus:hidden"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 stroke-indigo-100 animate-spin hidden group-focus:block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+          <span class="group-focus:hidden">Masuk</span>
+        </button>
+      </div>
+      <!--Illustration-->
     </div>
-    <p class="subtitle text-secondary">
-      Ambil Nomor Ga Pake Ribet
-    </p>
-    <!-- LoginID -->
-    <label
-      for="loginid"
-      class="form-label"
-    >NIP Pendek</label>
-    <input
-      id="loginid"
-      v-model="nip"
-      type="text"
-      name="loginid"
-      class="form-control mb-4"
-      placeholder="ex: 813300611"
-    >
-    <!-- Password -->
-    <label
-      for="password"
-      class="form-label"
-    >Password</label>
-    <input
-      id="password"
-      v-model="password"
-      type="password"
-      name="password"
-      class="form-control mb-4"
-    >
-    <!-- CTA -->
-    <button
-      class="btn btn-success"
-      :disabled="!nip || !password"
-      @click="processLogin"
-    >
-      Masuk Gan
-    </button>
-    <!-- Alert -->
-    <teleport to="body">
-      <CustomAlert
-        v-if="showAlert"
-        class="alert-warning"
-      >
-        <template #default>
-          <strong>Authentication Error</strong><br>
-          <span>{{ msgAlert }}</span>
-        </template>
-      </CustomAlert>
-    </teleport>
   </div>
 </template>
 
 <script>
-import { auth } from '../firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import CustomAlert from '../components/Alert.vue'
 export default {
-  components: {
-    CustomAlert
-  },
-  data() {
-    return {
-      nip: '',
-      password: null,
-      showAlert: false,
-      msgAlert: ''
-    }
-  },
-  computed: {
-    nip_process() {
-      return this.nip + '@bukuijo.com'
-    }
-  },
-  methods: {
-    async processLogin() {
-      try {
-        await signInWithEmailAndPassword(auth, this.nip_process, this.password)
-        this.$router.replace({ name: 'dashboard' })
-        this.showAlert = false
-      } catch (error) {
-        // console.log(error.code)
-        switch (error.code) {
-          case 'auth/user-not-found':
-            this.msgAlert = `User ${this.nip} beneran terdaftar?`
-            break
-          case 'auth/wrong-password':
-            this.msgAlert = 'Kayaknya salah password om, hehe'
-            break
-          default:
-            this.msgAlert =
-              'Something wrong occured, please contact Administrator'
-            break
-        }
-        this.showAlert = true
-      }
-    }
+  setup() {
+
+
+    return {}
   }
 }
 </script>
 
+
 <style scoped>
-.logo {
-  width: 2.25rem;
-  margin-right: 0.5rem;
-}
-
-h2 {
-  margin-bottom: 0;
-  font-weight: bold;
-}
-
-.subtitle {
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-  margin-bottom: 2.5rem;
-}
-
-button {
-  font-weight: 600;
-}
-
-.alert {
-  position: absolute;
-  top: 0;
-  left: 0;
+#container {
+  background-image: url(../assets/waves.svg);
+  background-size: cover;
 }
 </style>
