@@ -1,0 +1,65 @@
+<template>
+	<div class="mx-auto w-fit">
+		<div class="flex items-center justify-between mb-6">
+			<h1 class="text-xl font-semibold text-slate-500">Komitmen SP2</h1>
+		</div>
+		<!-- Table -->
+		<table
+			class="max-w-max overflow-hidden rounded bg-slate-50 shadow-lg shadow-slate-800/5 border-collapse"
+		>
+			<thead>
+				<tr class="bg-slate-200">
+					<th>Nama Wajib Pajak</th>
+					<th>Masa/Tahun Pajak</th>
+					<th>Tanggal Komitmen</th>
+					<th class="hidden md:table-cell">Jenis SP2</th>
+					<th class="hidden md:table-cell">Jenis Wajib Pajak</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-slate-200">
+				<!-- <tr class="border-0 border-slate-200">
+					<td class="font-medium text-slate-500"></td>
+					<td class="font-light"></td>
+					<td class="font-semibold"></td>
+					<td class="font-light"></td>
+				</tr>-->
+				<komitmen-table-cell />
+				<komitmen-table-cell />
+			</tbody>
+		</table>
+		<p
+			class="mt-9 text-xs md:text-base max-w-[65ch] text-slate-400 md:text-slate-500 font-light italic"
+		>
+			Untuk melihat detail SP2 lebih lanjut silahkan
+			<span
+				class="font-semibold"
+			>klik</span> pada
+			<span class="font-semibold">setiap baris data</span>
+		</p>
+	</div>
+</template>
+
+<script>
+import KomitmenTableCell from "../components/v2/KomitmenTableCell.vue";
+
+export default {
+	components: {
+		KomitmenTableCell
+	}
+}
+</script>
+
+<style scoped>
+th,
+td {
+	@apply px-2 py-3 md:py-5 md:px-6 lg:px-7 text-left text-xs md:text-base md:tracking-tight;
+}
+
+th {
+	@apply text-slate-500 font-medium;
+}
+
+td {
+	@apply text-slate-600;
+}
+</style>

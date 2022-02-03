@@ -1,8 +1,9 @@
 <template>
-  <router-view />
+  <!-- <router-view /> -->
+  <page-komitmen />
 </template>
 
 <script setup>
 // import TheHeader from './components/v2/TheHeader.vue';
-// import PageDashboard from './views/PageSuratGue.vue';
+import PageKomitmen from './views/OnlyKomitmen.vue';
 </script>
