@@ -5,6 +5,7 @@
   >
     <!-- Alert Gagal -->
     <div
+      v-if="showAlert"
       class="absolute top-3 py-4 px-5 max-w-max rounded-lg flex items-center gap-5 border-l-4 border-red-600 bg-red-100 border"
     >
       <!--Illustration-->
@@ -161,10 +162,13 @@
         </div>
         <button
           class="flex justify-center items-center gap-2 w-full font-medium text-white bg-indigo-600 hover:bg-indigo-500 hover:shadow hover:shadow-indigo-800/40 focus:bg-indigo-700 focus:shadow-inner pr-9 pl-8 py-3 rounded-lg group"
+          @click="login"
         >
+          <!-- Lock SVG -->
           <svg
+            v-show="!onLogin"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 fill-indigo-300 group-focus:hidden"
+            class="h-4 w-4 fill-indigo-300"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -172,9 +176,11 @@
               d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"
             />
           </svg>
+          <!-- Animation Login Click -->
           <svg
+            v-show="onLogin"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 stroke-indigo-100 animate-spin hidden group-focus:block"
+            class="h-6 w-6 stroke-indigo-100 animate-spin"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -186,7 +192,7 @@
               d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
             />
           </svg>
-          <span class="group-focus:hidden">Masuk</span>
+          <span v-show="!onLogin">Masuk</span>
         </button>
       </div>
       <!--Illustration-->
@@ -194,19 +200,46 @@
   </div>
 </template>
 
-<script>import { ref } from "vue"
+<script>
+import { computed, ref } from "vue"
+import { useRouter } from "vue-router"
+import { auth } from '../firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   setup() {
+    const router = useRouter()
+
     const nip = ref('')
     const pass = ref('')
+    const nip_process = computed(() => {
+      return nip.value + '@bukuijo.com'
+    })
+
+    async function login() {
+      onLogin.value = true
+      try {
+        await signInWithEmailAndPassword(auth, nip_process.value, pass.value)
+        router.replace({ name: 'dashboard' })
+        showAlert.value = false
+      } catch {
+        // console.log('error');
+        showAlert.value = true
+      }
+      onLogin.value = false
+    }
 
     const isPassVisible = ref(false)
+    const onLogin = ref(false)
+    const showAlert = ref(false)
 
     return {
       nip,
       pass,
-      isPassVisible
+      isPassVisible,
+      onLogin,
+      showAlert,
+      login
     }
   }
 }
