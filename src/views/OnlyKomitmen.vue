@@ -17,12 +17,6 @@
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-slate-200">
-				<!-- <tr class="border-0 border-slate-200">
-					<td class="font-medium text-slate-500"></td>
-					<td class="font-light"></td>
-					<td class="font-semibold"></td>
-					<td class="font-light"></td>
-				</tr>-->
 				<komitmen-table-cell />
 				<komitmen-table-cell />
 			</tbody>

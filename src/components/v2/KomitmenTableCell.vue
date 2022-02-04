@@ -6,7 +6,7 @@
 		<!--<td class="text-right">1</td>-->
 		<td class="font-medium text-slate-500">CV. Sumber Makmur</td>
 		<td class="font-light">012018 - 122018</td>
-		<td class="font-semibold">28/02/2022</td>
+		<td class="font-semibold">Feb 22, 2021</td>
 		<td class="hidden md:table-cell">
 			<span
 				class="bg-blue-100 p-2 font-medium text-blue-500 text-sm rounded-full"
@@ -14,10 +14,10 @@
 		</td>
 		<td class="hidden md:table-cell">Badan</td>
 	</tr>
-	<!-- Detail on Mobile -->
+	<!-- Detail on Click -->
 	<tr
 		v-show="showDetail"
-		class="bg-indigo-100 border-0 border-slate-300 shadow-inner"
+		class="bg-indigo-100 border-0 border-slate-300 shadow-inner shadow-indigo-800/10"
 	>
 		<td colspan="2">
 			<span
@@ -26,7 +26,7 @@
 			<p class="text-indigo-500 mb-1">PRIN-00183/WPJ.08/KP.05/RIK.SIS/2021</p>
 			<p class="text-indigo-700 font-light">
 				Tanggal SP2:
-				<span class="font-semibold">31/11/2020</span>
+				<span class="font-semibold">Nov 30, 2021</span>
 			</p>
 		</td>
 		<td>
