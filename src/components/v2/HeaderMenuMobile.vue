@@ -30,13 +30,16 @@
 					viewBox="0 0 20 20"
 					fill="currentColor"
 				>
-					<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+					<path
+						d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+					/>
 					<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
 				</svg>
 				<span>Surat Gue</span>
 			</router-link>
-			<button
+			<router-link
 				class="flex items-center gap-3 p-3 w-full text-slate-300 font-semibold text-left rounded-lg group focus:bg-slate-700 focus:text-slate-200 hover:bg-slate-700 hover:text-slate-200"
+				:to="{ name: 'komitmen' }"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +55,7 @@
 					/>
 				</svg>
 				<span>Komitmen SP2</span>
-			</button>
+			</router-link>
 			<button
 				class="p-3 w-full text-slate-300 font-semibold rounded-lg group bg-slate-700 focus:bg-red-600 focus:text-slate-200 hover:bg-red-600 hover:text-slate-200"
 				@click="logout"

@@ -14,20 +14,25 @@
 				<router-link
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
 					:to="{ name: 'dashboard' }"
-					exact-active-class="text-white bg-slate-500"
+					exact-active-class="text-slate-50 bg-slate-500"
 				>Dashboard</router-link>
 				<router-link
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-emerald-500 hidden md:block"
 					:to="{ name: 'suratgue' }"
-					exact-active-class="text-white bg-slate-500"
+					exact-active-class="text-slate-50 bg-slate-500"
 				>Surat Gue</router-link>
-				<button
+				<router-link
 					class="text-slate-300 font-semibold px-4 py-2 rounded-full hover:text-white hover:bg-red-500 hidden md:block"
-				>Komitmen SP2</button>
+					:to="{ name: 'komitmen' }"
+					exact-active-class="text-slate-50 bg-slate-500"
+				>Komitmen SP2</router-link>
 				<!-- Other Buttons -->
 				<div class="ml-8 flex self-stretch">
 					<!-- Logout Button -->
-					<button class="px-5 rounded-lg group hover:bg-slate-600 hidden md:block" @click="logout">
+					<button
+						class="px-5 rounded-lg group hover:bg-slate-600 hidden md:block"
+						@click="logout"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6 stroke-slate-400 group-hover:stroke-white"
