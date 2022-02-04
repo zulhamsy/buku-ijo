@@ -3,6 +3,7 @@ import { auth } from '../firebase'
 const Dashboard = () => import('../views/PageDashboard.vue')
 const LoginPage = () => import('../views/LoginPage.vue')
 const SuratGue = () => import('../views/PageSuratGue.vue')
+const KomitmenSP2 = () => import('../views/PageKomitmen.vue')
 
 const routes = [
   {
@@ -19,6 +20,14 @@ const routes = [
     path: '/surat-gue',
     name: 'suratgue',
     component: SuratGue,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: '/komitmen-ga-yaa',
+    name: 'komitmen',
+    component: KomitmenSP2,
     meta: {
       requireAuth: true
     }
