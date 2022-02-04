@@ -4,6 +4,7 @@ const store = createStore({
   state() {
     return {
       recentSurat: [],
+      sp2: [],
       suratTerakhir: {},
       username: null,
       notifKomitmen: {},
@@ -35,6 +36,9 @@ const store = createStore({
     },
     closeNotifSurat(state) {
       state.notifSurat = {}
+    },
+    addSP2(state, payload) {
+      state.sp2.push(payload)
     }
   }
 })

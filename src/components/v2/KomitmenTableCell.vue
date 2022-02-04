@@ -4,15 +4,15 @@
 		@click="showDetail = !showDetail"
 	>
 		<!--<td class="text-right">1</td>-->
-		<td class="font-medium text-slate-500">CV. Sumber Makmur</td>
-		<td class="font-light">012018 - 122018</td>
-		<td class="font-semibold">Feb 22, 2021</td>
+		<td class="font-medium text-slate-500">{{ data.nama_wp }}</td>
+		<td class="font-light">{{ data.masa_pajak }}</td>
+		<td class="font-semibold">{{ dateDisplay(data.tanggal_komitmen.toDate()) }}</td>
 		<td class="hidden md:table-cell">
 			<span
 				class="bg-blue-100 p-2 font-medium text-blue-500 text-sm rounded-full"
-			>Pemsus</span>
+			>{{ data.jenis_sp2 }}</span>
 		</td>
-		<td class="hidden md:table-cell">Badan</td>
+		<td class="hidden md:table-cell">{{ data.jenis_wp }}</td>
 	</tr>
 	<!-- Detail on Click -->
 	<tr
@@ -41,12 +41,27 @@
 <script>
 import { ref } from "vue"
 
+import extractDate from "../../composable/useExtractDate"
+
 export default {
+	props: {
+		data: {
+			type: Object,
+			default: () => { }
+		}
+	},
 	setup() {
 		const showDetail = ref(false)
 
+		// Date Formatting
+		function dateDisplay(tanggal) {
+			const { date, month, year } = extractDate(tanggal)
+			return `${month} ${date}, ${year}`
+		}
+
 		return {
-			showDetail
+			showDetail,
+			dateDisplay
 		}
 	}
 }

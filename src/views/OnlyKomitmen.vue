@@ -17,8 +17,7 @@
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-slate-200">
-				<komitmen-table-cell />
-				<komitmen-table-cell />
+				<komitmen-table-cell v-for="sp2 in sp2Cache" :key="sp2.id" :data="sp2" />
 			</tbody>
 		</table>
 		<p
@@ -34,11 +33,40 @@
 </template>
 
 <script>
+import { computed, onMounted } from "vue";
 import KomitmenTableCell from "../components/v2/KomitmenTableCell.vue";
+
+import { auth } from "../firebase";
+import { fetchSP2 } from "../composable/useFetchSP2";
+import { useStore } from "vuex";
 
 export default {
 	components: {
 		KomitmenTableCell
+	},
+	setup() {
+		const store = useStore()
+
+		// Fetch SP2
+		const sp2Cache = computed(() => store.state.sp2)
+		async function fetchSP2OnComponent() {
+			const result = await fetchSP2({
+				filter: ['pj', '==', auth.currentUser.uid]
+			})
+
+			result.forEach((data) => {
+				store.commit('addSP2', data.data())
+			})
+		}
+		onMounted(() => {
+			if (!sp2Cache.value.length) {
+				fetchSP2OnComponent()
+			}
+		})
+
+		return {
+			sp2Cache
+		}
 	}
 }
 </script>
