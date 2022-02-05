@@ -74,7 +74,10 @@ export default {
 <style scoped>
 th,
 td {
-	@apply px-2 py-3 md:py-5 md:px-6 lg:px-7 text-left text-xs md:text-base md:tracking-tight;
+	@apply md:tracking-tight;
+	font-size: clamp(0.75rem, 0.625rem + 0.625vw, 1.125rem);
+	@apply px-[clamp(0.5rem,0.16666666666666669rem+1.6666666666666667vw,1.5rem)];
+	@apply py-[clamp(0.75rem,0.5833333333333334rem+0.8333333333333334vw,1.25rem)];
 }
 
 th {

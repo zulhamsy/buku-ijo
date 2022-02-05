@@ -9,7 +9,7 @@
 		<td class="font-semibold">{{ dateDisplay(data.tanggal_komitmen.toDate()) }}</td>
 		<td class="hidden md:table-cell">
 			<span
-				class="bg-blue-100 p-2 font-medium text-blue-500 text-sm rounded-full"
+				class="bg-blue-100 inline-block text-cent p-2 font-medium text-blue-500 text-sm rounded-full"
 			>{{ data.jenis_sp2 }}</span>
 		</td>
 		<td class="hidden md:table-cell">{{ data.jenis_wp }}</td>
@@ -22,16 +22,18 @@
 		<td colspan="2">
 			<span
 				class="md:hidden inline-block mb-1 bg-blue-600 py-1 px-2 font-medium text-white rounded-full"
-			>Pemsus</span>
-			<p class="text-indigo-500 mb-1">PRIN-00183/WPJ.08/KP.05/RIK.SIS/2021</p>
+			>{{ data.jenis_sp2 }}</span>
+			<p class="text-indigo-500 mb-1">{{ data.no_sp2 }}</p>
 			<p class="text-indigo-700 font-light">
 				Tanggal SP2:
-				<span class="font-semibold">Nov 30, 2021</span>
+				<span
+					class="font-semibold"
+				>{{ dateDisplay(data.tanggal_sp2.toDate()) }}</span>
 			</p>
 		</td>
 		<td>
 			<p class="text-indigo-700 font-light">
-				<span class="font-semibold">30%</span> progress
+				<span class="font-semibold">{{ data.progress }}%</span> progress
 			</p>
 		</td>
 		<td class="hidden md:table-cell" colspan="2"></td>
@@ -70,7 +72,10 @@ export default {
 <style scoped>
 th,
 td {
-	@apply px-2 py-3 md:py-5 md:px-6 lg:px-7 text-left text-xs md:text-base md:tracking-tight;
+	@apply text-left md:tracking-tight;
+	font-size: clamp(0.75rem, 0.625rem + 0.625vw, 1.125rem);
+	@apply px-[clamp(0.5rem,0.16666666666666669rem+1.6666666666666667vw,1.5rem)];
+	@apply py-[clamp(0.75rem,0.5833333333333334rem+0.8333333333333334vw,1.25rem)];
 }
 
 th {
