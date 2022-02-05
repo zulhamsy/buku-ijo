@@ -8,9 +8,7 @@
 		<td class="font-light">{{ data.masa_pajak }}</td>
 		<td class="font-semibold">{{ dateDisplay(data.tanggal_komitmen.toDate()) }}</td>
 		<td class="hidden md:table-cell">
-			<span
-				class="bg-blue-100 inline-block text-cent p-2 font-medium text-blue-500 text-sm rounded-full"
-			>{{ data.jenis_sp2 }}</span>
+			<jenis-pill :jenis="data.jenis_sp2" />
 		</td>
 		<td class="hidden lg:table-cell font-light">{{ data.jenis_wp }}</td>
 	</tr>
@@ -54,10 +52,11 @@
 
 <script>
 import { ref } from "vue"
-
 import extractDate from "../../composable/useExtractDate"
+import JenisPill from "./JenisPill.vue"
 
 export default {
+	components: { JenisPill },
 	props: {
 		data: {
 			type: Object,
@@ -65,18 +64,16 @@ export default {
 		}
 	},
 	setup() {
-		const showDetail = ref(false)
-
+		const showDetail = ref(false);
 		// Date Formatting
 		function dateDisplay(tanggal) {
-			const { date, month, year } = extractDate(tanggal)
-			return `${month} ${date}, ${year}`
+			const { date, month, year } = extractDate(tanggal);
+			return `${month} ${date}, ${year}`;
 		}
-
 		return {
 			showDetail,
 			dateDisplay
-		}
+		};
 	}
 }
 </script>
