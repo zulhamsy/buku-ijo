@@ -12,7 +12,7 @@
 				class="bg-blue-100 inline-block text-cent p-2 font-medium text-blue-500 text-sm rounded-full"
 			>{{ data.jenis_sp2 }}</span>
 		</td>
-		<td class="hidden md:table-cell">{{ data.jenis_wp }}</td>
+		<td class="hidden lg:table-cell font-light">{{ data.jenis_wp }}</td>
 	</tr>
 	<!-- Detail on Click -->
 	<tr
@@ -24,11 +24,23 @@
 				class="md:hidden inline-block mb-1 bg-blue-600 py-1 px-2 font-medium text-white rounded-full"
 			>{{ data.jenis_sp2 }}</span>
 			<p class="text-indigo-500 mb-1">{{ data.no_sp2 }}</p>
-			<p class="text-indigo-700 font-light">
-				Tanggal SP2:
-				<span
-					class="font-semibold"
-				>{{ dateDisplay(data.tanggal_sp2.toDate()) }}</span>
+			<p class="text-indigo-700 font-light flex items-center gap-2">
+				<!-- Tanggal SP2: -->
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5 stroke-indigo-500"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+					/>
+				</svg>
+				<span class="font-semibold">{{ dateDisplay(data.tanggal_sp2.toDate()) }}</span>
 			</p>
 		</td>
 		<td>

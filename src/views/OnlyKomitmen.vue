@@ -13,7 +13,7 @@
 					<th>Masa/Tahun Pajak</th>
 					<th>Tanggal Komitmen</th>
 					<th class="hidden md:table-cell">Jenis SP2</th>
-					<th class="hidden md:table-cell">Jenis Wajib Pajak</th>
+					<th class="hidden lg:table-cell">Jenis Wajib Pajak</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-slate-200">
