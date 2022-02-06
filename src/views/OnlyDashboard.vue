@@ -15,7 +15,14 @@
 					tipe="komitmen"
 					class="mb-3"
 				>
-					<span v-html="notifKomitmen.content"></span>
+					<span v-if="notifKomitmen.size == 1" v-html="notifKomitmen.content"></span>
+					<span v-if="notifKomitmen.size > 1">
+						<span v-html="notifKomitmen.content"></span> dan
+						<router-link
+							class="font-semibold underline"
+							:to="{ name: 'komitmen' }"
+						>{{ notifKomitmen.size - 1 }} lainnya&nbsp;</router-link>akan jatuh tempo dalam waktu dekat. Lembur dah lembur!
+					</span>
 				</the-alert>
 				<!-- Alert Surat-->
 				<the-alert v-if="Object.keys(notifSurat).length" :tipe="notifSurat.tipe">
@@ -37,8 +44,11 @@ import TheSidebar from "../components/v2/TheSidebar.vue";
 import TheAlert from "../components/v2/TheAlert.vue";
 import DashboardRekamSurat from "../components/v2/DashboardRekamSurat.vue";
 import DashboardRecentSurat from "../components/v2/DashboardRecentSurat.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "vuex";
+import { auth } from "../firebase";
+
+import { fetchSPJT } from "../composable/useNotifSP2";
 
 export default {
 	components: {
@@ -71,6 +81,14 @@ export default {
 		})
 		const notifSurat = computed(() => {
 			return store.state.notifSurat
+		})
+
+		onMounted(async () => {
+			if (!Object.keys(notifKomitmen.value).length) {
+				const komitmenAlert = await fetchSPJT(auth.currentUser.uid)
+
+				store.commit('updateNotifKomitmen', komitmenAlert)
+			}
 		})
 
 		return {

@@ -42,6 +42,7 @@ const store = createStore({
     },
     updateNotifKomitmen(state, payload) {
       state.notifKomitmen.content = payload.content
+      state.notifKomitmen.size = payload.size
     }
   }
 })

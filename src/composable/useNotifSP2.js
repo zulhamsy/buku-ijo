@@ -15,17 +15,21 @@ async function fetchSPJT(uid) {
 
   // console.log(sp2.docs[0].data())
   if (sp2.size == 1) {
-    return `<span class="font-semibold">${
-      sp2.docs[0].data().nama_wp
-    }</span> akan jatuh tempo dalam waktu dekat. Semangat ye kerjanya!`
+    return {
+      content: `<span class="font-semibold">${
+        sp2.docs[0].data().nama_wp
+      }</span> akan jatuh tempo dalam waktu dekat. Semangat ye kerjanya!`,
+      size: sp2.size
+    }
   }
 
   if (sp2.size > 1) {
-    return `<span class="font-semibold">${
-      sp2.docs[0].data().nama_wp
-    }</span> dan <span class="font-semibold">${
-      sp2.size - 1
-    } lainnya</span> akan jatuh tempo dalam waktu dekat. Lembur dah lembur!`
+    return {
+      content: `<span class="font-semibold">${
+        sp2.docs[0].data().nama_wp
+      }</span>`,
+      size: sp2.size
+    }
   }
 
   if (!sp2.size) {

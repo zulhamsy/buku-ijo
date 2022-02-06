@@ -66,7 +66,7 @@
 				:class="[
 					{ 'text-emerald-500': successClass },
 					{ 'text-orange-500': errorClass },
-					{ 'text-red-500': komitmenClass }
+					{ '!text-red-500': komitmenClass }
 				]"
 			>{{ titleText }}</p>
 			<p
@@ -74,7 +74,7 @@
 				:class="[
 					{ 'text-emerald-800': successClass },
 					{ 'text-orange-800': errorClass },
-					{ 'text-red-800': komitmenClass }
+					{ '!text-red-800': komitmenClass }
 				]"
 			>
 				<slot></slot>

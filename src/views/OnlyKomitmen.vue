@@ -38,7 +38,6 @@ import KomitmenTableCell from "../components/v2/KomitmenTableCell.vue";
 
 import { auth } from "../firebase";
 import { fetchSP2 } from "../composable/useFetchSP2";
-import { fetchSPJT } from "../composable/useNotifSP2";
 import { useStore } from "vuex";
 
 export default {
@@ -59,11 +58,10 @@ export default {
 				store.commit('addSP2', data.data())
 			})
 		}
-		onMounted(async () => {
+		onMounted(() => {
 			if (!sp2Cache.value.length) {
 				fetchSP2OnComponent()
 			}
-			console.log(await fetchSPJT(auth.currentUser.uid))
 		})
 
 		return {
