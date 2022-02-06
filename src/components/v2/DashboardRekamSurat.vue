@@ -21,7 +21,13 @@
 			<!-- Tujuan Surat -->
 			<div>
 				<label for="tujuan">Tujuan Surat</label>
-				<input-form id="tujuan" v-model="tujuan" type="text" class="w-full" autocomplete="off" />
+				<input-form
+					id="tujuan"
+					v-model="tujuan"
+					type="text"
+					class="w-full"
+					autocomplete="off"
+				/>
 			</div>
 			<!-- Perihal -->
 			<div>
@@ -49,8 +55,14 @@
 				/>
 			</div>
 			<!-- CTA -->
-			<the-button type="submit" class="w-full md:w-fit !mt-8">
+			<the-button
+				type="submit"
+				class="w-full md:w-fit !mt-8"
+				:disabled="onSubmitting"
+			>
+				<!-- Submit icon -->
 				<svg
+					v-show="!onSubmitting"
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-6 w-6 stroke-indigo-200"
 					fill="none"
@@ -64,11 +76,30 @@
 						d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
 					/>
 				</svg>
-				<span>Rekam Surat</span>
+				<!-- Animation onSubmitting Click -->
+				<svg
+					v-show="onSubmitting"
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6 stroke-indigo-100 animate-spin"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+					/>
+				</svg>
+				<span v-show="!onSubmitting">Rekam Surat</span>
 			</the-button>
 		</form>
 		<!-- Latest Info -->
-		<div v-if="Object.keys(suratTerakhir).length" class="hidden lg:block lg:space-y-6">
+		<div
+			v-if="Object.keys(suratTerakhir).length"
+			class="hidden lg:block lg:space-y-6"
+		>
 			<div>
 				<p class="text-xl font-light text-slate-600">Nomor Surat Terakhir</p>
 				<p
@@ -118,11 +149,13 @@ export default {
 		})
 
 		// Submitting Surat
+		const onSubmitting = ref(false)
 		const username = computed(() => {
 			return store.state.username
 		})
 
 		async function inputSurat() {
+			onSubmitting.value = true
 			const payload = {
 				jenis_surat: mode_surat.value,
 				tujuan_surat: tujuan.value,
@@ -152,6 +185,7 @@ export default {
 					tipe: 'error'
 				})
 			}
+			onSubmitting.value = false
 		}
 
 		// Fetching Surat Terakhir Info
@@ -183,7 +217,8 @@ export default {
 			maximumDate,
 			tanggalSuratTerakhir,
 			suratTerakhir,
-			inputSurat
+			inputSurat,
+			onSubmitting
 		}
 	}
 }
