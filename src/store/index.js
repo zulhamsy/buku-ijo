@@ -39,6 +39,9 @@ const store = createStore({
     },
     addSP2(state, payload) {
       state.sp2.push(payload)
+    },
+    updateNotifKomitmen(state, payload) {
+      state.notifKomitmen.content = payload.content
     }
   }
 })

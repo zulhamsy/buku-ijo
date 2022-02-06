@@ -59,11 +59,11 @@ export default {
 				store.commit('addSP2', data.data())
 			})
 		}
-		onMounted(() => {
+		onMounted(async () => {
 			if (!sp2Cache.value.length) {
 				fetchSP2OnComponent()
 			}
-			fetchSPJT(auth.currentUser.uid)
+			console.log(await fetchSPJT(auth.currentUser.uid))
 		})
 
 		return {
