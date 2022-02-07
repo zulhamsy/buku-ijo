@@ -21,7 +21,7 @@
 						<router-link
 							class="font-semibold underline"
 							:to="{ name: 'komitmen' }"
-						>{{ notifKomitmen.size - 1 }} lainnya&nbsp;</router-link>akan jatuh tempo dalam waktu dekat. Lembur dah lembur!
+						>{{ notifKomitmen.size - 1 }} lainnya</router-link>&nbsp;akan jatuh tempo dalam waktu dekat. Lembur dah lembur!
 					</span>
 				</the-alert>
 				<!-- Alert Surat-->

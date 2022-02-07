@@ -37,4 +37,4 @@ async function fetchSPJT(uid) {
   }
 }
 
-export { fetchSPJT }
+export { fetchSPJT, addDays }

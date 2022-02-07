@@ -6,7 +6,13 @@
 		<!--<td class="text-right">1</td>-->
 		<td class="font-medium text-slate-500">{{ data.nama_wp }}</td>
 		<td class="font-light">{{ data.masa_pajak }}</td>
-		<td class="font-semibold">{{ dateDisplay(data.tanggal_komitmen.toDate()) }}</td>
+		<td class="font-semibold">
+			<span class="relative">
+				{{ dateDisplay(data.tanggal_komitmen.toDate()) }}
+				<!-- Red Dot Sign -->
+				<red-dot-sign v-if="data.tanggal_komitmen.toDate() <= addDays(30)" />
+			</span>
+		</td>
 		<td class="hidden md:table-cell">
 			<jenis-pill :jenis="data.jenis_sp2" />
 		</td>
@@ -53,10 +59,12 @@
 <script>
 import { ref } from "vue"
 import extractDate from "../../composable/useExtractDate"
+import { addDays } from "../../composable/useNotifSP2"
 import JenisPill from "./JenisPill.vue"
+import RedDotSign from "./RedDotSign.vue"
 
 export default {
-	components: { JenisPill },
+	components: { JenisPill, RedDotSign },
 	props: {
 		data: {
 			type: Object,
@@ -72,13 +80,15 @@ export default {
 		}
 		return {
 			showDetail,
-			dateDisplay
+			dateDisplay,
+			addDays
 		};
 	}
 }
 </script>
 
 <style scoped>
+th,
 th,
 td {
 	@apply text-left md:tracking-tight;
